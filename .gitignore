@@ -1,0 +1,6 @@
+# Generated audio and intermediate files: every experiment regenerates them
+results/
+
+.venv/
+__pycache__/
+*.pyc

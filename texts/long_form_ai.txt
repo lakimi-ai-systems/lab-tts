@@ -1,0 +1,23 @@
+Hace apenas unos años, hablar con una máquina era cosa de películas. Hoy le pedimos al teléfono que nos resuma un
+correo, que nos traduzca una carta o que nos ayude a escribir un informe, y lo hace en cuestión de segundos. Detrás de
+todo esto está la inteligencia artificial, y en concreto los grandes modelos de lenguaje.
+La idea de fondo es sencilla, aunque su escala impresiona. Un modelo lee una cantidad enorme de texto y aprende a
+predecir cuál es la palabra siguiente. Repetido miles de millones de veces, ese ejercicio tan simple acaba capturando
+la gramática, el estilo y buena parte del conocimiento que contienen los libros, las páginas web y los artículos
+científicos.
+Lo sorprendente es que, a partir de cierto tamaño, aparecen capacidades que nadie programó de forma explícita. Los
+modelos razonan paso a paso, escriben código, resuelven problemas de matemáticas y mantienen una conversación con
+bastante sentido. No piensan como nosotros, pero el resultado, muchas veces, se le parece.
+La voz es la siguiente frontera. Los sistemas de síntesis actuales ya no suenan a robot: respiran, hacen pausas,
+cambian de entonación y pueden imitar el timbre de una persona con solo unos segundos de grabación. Y lo más llamativo
+es que algunos de los mejores modelos son pequeños, abiertos y caben en una sola tarjeta gráfica. Eso abre la puerta a
+asistentes que atienden llamadas, lectores que narran libros enteros o herramientas que devuelven la voz a quien la ha
+perdido por una enfermedad.
+Claro que no todo son ventajas. Los modelos se equivocan con una seguridad desconcertante, pueden inventarse datos y
+reproducen los sesgos de los textos con los que aprendieron. Por eso conviene revisar lo que dicen, sobre todo cuando
+hay decisiones importantes de por medio.
+También preocupa el uso que se les da. Una voz clonada sin permiso puede servir para engañar, y un texto generado en
+masa puede llenar internet de ruido. La regulación avanza, pero más despacio que la tecnología.
+Aun así, la sensación general es de estar al principio de algo grande. Igual que pasó con la electricidad o con
+internet, lo interesante no será la herramienta en sí, sino todo lo que la gente construya con ella en los próximos
+diez años.

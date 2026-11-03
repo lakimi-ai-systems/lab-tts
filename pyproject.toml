@@ -1,0 +1,36 @@
+[project]
+name = "lab-tts"
+version = "0.1.0"
+description = "Reproducible text-to-speech experiments in Castilian Spanish"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10,<3.13"
+# Pinned to the versions the experiments were run with; qwen-tts itself pins transformers and accelerate
+dependencies = [
+    "qwen-tts==0.0.5",
+    "torch==2.8.0",
+    "torchaudio==2.8.0",
+    "transformers==4.57.3",
+    "accelerate==1.12.0",
+    "librosa>=0.11",
+    "soundfile>=0.13",
+    "numpy<2",
+    "pyyaml>=6",
+    "num2words>=0.5.13",
+]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+torchaudio = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["labtts"]

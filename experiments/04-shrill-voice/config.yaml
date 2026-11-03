@@ -1,0 +1,20 @@
+# Shrillness is always measured against this voice: the calm voice we actually want to hear
+target_voice: warm_male
+references: [warm_male, warm_male_energetic]
+texts: paragraphs.jsonl  # six ~15 s paragraphs; paragraph i always uses seed i, so variants are compared like for like
+# Each output becomes the reference for the next generation (a copy of a copy), starting from target_voice
+reclone_chain:
+  steps: 6
+shrillness:
+  window_seconds: 1.0
+  pitch_margin_semitones: 4.0
+  centroid_margin: 1.2
+  min_voiced_share: 0.3
+# engine name -> variants: name -> setting overrides on top of the engine defaults (engines that cannot clone are skipped)
+engines:
+  qwen3-tts-0.6b:
+    default: {}
+    talker_cold: {temperature: 0.6}
+    talker_hot: {temperature: 1.2}
+    subtalker_cold: {subtalker_temperature: 0.6}
+    subtalker_hot: {subtalker_temperature: 1.2}

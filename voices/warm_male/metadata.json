@@ -1,0 +1,16 @@
+{
+  "designed_with": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "description_language": "english",
+  "seed": 0,
+  "picked_as": "calmest",
+  "profile": {
+    "pitch_median_hz": 144.36,
+    "pitch_p95_hz": 178.04,
+    "pitch_spread_semitones": 2.93,
+    "centroid_median_hz": 1365.02,
+    "centroid_p95_hz": 3160.12,
+    "loudness_dbfs": -24.3
+  },
+  "phonetic_error_rate": 0.0,
+  "word_error_rate": 0.0
+}

@@ -1,0 +1,332 @@
+{
+ "config": {
+  "voice": "warm_male",
+  "text": "long_form_ai.txt",
+  "seeds": [
+   0,
+   1
+  ],
+  "modes": {
+   "one_shot": "the whole text in a single generation",
+   "per_sentence": "one generation per sentence, joined with a short silence (how a voice gateway usually feeds a TTS)"
+  },
+  "sentence_gap_seconds": 0.25,
+  "window_seconds": 20,
+  "engines": {
+   "qwen3-tts-0.6b": {
+    "default": {
+     "max_new_tokens": 3000
+    }
+   }
+  }
+ },
+ "engines": {
+  "qwen3-tts-0.6b": {
+   "environment": {
+    "date_utc": "2026-11-03 09:03",
+    "git_commit": "uncommitted",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "python": "3.12.12",
+    "packages": {
+     "qwen-tts": "0.0.5",
+     "torch": "2.8.0+cu128",
+     "transformers": "4.57.3",
+     "librosa": "0.11.0"
+    }
+   },
+   "voice": "warm_male",
+   "variants": {
+    "default": {
+     "max_new_tokens": 3000
+    }
+   },
+   "results": {
+    "runs": [
+     {
+      "mode": "one_shot",
+      "seed": 0,
+      "wav": "default_one_shot_seed0.wav",
+      "duration_s": 128.9,
+      "real_time_factor": 1.107,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0011,
+      "flagged_words": [],
+      "word_error_rate": 0.0,
+      "windows": [
+       {
+        "start_s": 0.0,
+        "end_s": 20.0,
+        "pitch_median_hz": 126.4,
+        "loudness_dbfs": -29.3,
+        "syllables_per_second": 6.1
+       },
+       {
+        "start_s": 20.0,
+        "end_s": 40.0,
+        "pitch_median_hz": 125.0,
+        "loudness_dbfs": -30.4,
+        "syllables_per_second": 6.05
+       },
+       {
+        "start_s": 40.0,
+        "end_s": 60.0,
+        "pitch_median_hz": 125.0,
+        "loudness_dbfs": -32.1,
+        "syllables_per_second": 5.6
+       },
+       {
+        "start_s": 60.0,
+        "end_s": 80.0,
+        "pitch_median_hz": 146.9,
+        "loudness_dbfs": -31.2,
+        "syllables_per_second": 5.2
+       },
+       {
+        "start_s": 80.0,
+        "end_s": 100.0,
+        "pitch_median_hz": 140.3,
+        "loudness_dbfs": -30.7,
+        "syllables_per_second": 6.1
+       },
+       {
+        "start_s": 100.0,
+        "end_s": 120.0,
+        "pitch_median_hz": 141.1,
+        "loudness_dbfs": -31.3,
+        "syllables_per_second": 5.85
+       },
+       {
+        "start_s": 120.0,
+        "end_s": 128.9,
+        "pitch_median_hz": 131.6,
+        "loudness_dbfs": -32.5,
+        "syllables_per_second": 5.95
+       }
+      ],
+      "loudness_drift_db": -3.2,
+      "pitch_range_hz": [
+       125.0,
+       146.9
+      ],
+      "variant": "default"
+     },
+     {
+      "mode": "per_sentence",
+      "seed": 0,
+      "wav": "default_per_sentence_seed0.wav",
+      "duration_s": 134.1,
+      "real_time_factor": 1.059,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0023,
+      "flagged_words": [],
+      "word_error_rate": 0.0,
+      "windows": [
+       {
+        "start_s": 0.0,
+        "end_s": 20.0,
+        "pitch_median_hz": 124.2,
+        "loudness_dbfs": -29.1,
+        "syllables_per_second": 5.6
+       },
+       {
+        "start_s": 20.0,
+        "end_s": 40.0,
+        "pitch_median_hz": 141.9,
+        "loudness_dbfs": -26.1,
+        "syllables_per_second": 6.0
+       },
+       {
+        "start_s": 40.0,
+        "end_s": 60.0,
+        "pitch_median_hz": 129.4,
+        "loudness_dbfs": -29.4,
+        "syllables_per_second": 5.3
+       },
+       {
+        "start_s": 60.0,
+        "end_s": 80.0,
+        "pitch_median_hz": 134.7,
+        "loudness_dbfs": -29.3,
+        "syllables_per_second": 5.15
+       },
+       {
+        "start_s": 80.0,
+        "end_s": 100.0,
+        "pitch_median_hz": 136.3,
+        "loudness_dbfs": -28.5,
+        "syllables_per_second": 5.9
+       },
+       {
+        "start_s": 100.0,
+        "end_s": 120.0,
+        "pitch_median_hz": 138.6,
+        "loudness_dbfs": -28.8,
+        "syllables_per_second": 5.35
+       },
+       {
+        "start_s": 120.0,
+        "end_s": 134.1,
+        "pitch_median_hz": 126.4,
+        "loudness_dbfs": -29.5,
+        "syllables_per_second": 6.03
+       }
+      ],
+      "loudness_drift_db": -0.4,
+      "pitch_range_hz": [
+       124.2,
+       141.9
+      ],
+      "variant": "default"
+     },
+     {
+      "mode": "one_shot",
+      "seed": 1,
+      "wav": "default_one_shot_seed1.wav",
+      "duration_s": 129.6,
+      "real_time_factor": 1.114,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0028,
+      "flagged_words": [],
+      "word_error_rate": 0.0,
+      "windows": [
+       {
+        "start_s": 0.0,
+        "end_s": 20.0,
+        "pitch_median_hz": 123.5,
+        "loudness_dbfs": -30.2,
+        "syllables_per_second": 6.25
+       },
+       {
+        "start_s": 20.0,
+        "end_s": 40.0,
+        "pitch_median_hz": 123.9,
+        "loudness_dbfs": -31.2,
+        "syllables_per_second": 6.05
+       },
+       {
+        "start_s": 40.0,
+        "end_s": 60.0,
+        "pitch_median_hz": 127.9,
+        "loudness_dbfs": -32.8,
+        "syllables_per_second": 5.65
+       },
+       {
+        "start_s": 60.0,
+        "end_s": 80.0,
+        "pitch_median_hz": 158.3,
+        "loudness_dbfs": -32.3,
+        "syllables_per_second": 5.75
+       },
+       {
+        "start_s": 80.0,
+        "end_s": 100.0,
+        "pitch_median_hz": 146.9,
+        "loudness_dbfs": -33.5,
+        "syllables_per_second": 6.1
+       },
+       {
+        "start_s": 100.0,
+        "end_s": 120.0,
+        "pitch_median_hz": 154.7,
+        "loudness_dbfs": -34.4,
+        "syllables_per_second": 4.95
+       },
+       {
+        "start_s": 120.0,
+        "end_s": 129.6,
+        "pitch_median_hz": 135.5,
+        "loudness_dbfs": -35.1,
+        "syllables_per_second": 5.81
+       }
+      ],
+      "loudness_drift_db": -4.9,
+      "pitch_range_hz": [
+       123.5,
+       158.3
+      ],
+      "variant": "default"
+     },
+     {
+      "mode": "per_sentence",
+      "seed": 1,
+      "wav": "default_per_sentence_seed1.wav",
+      "duration_s": 132.3,
+      "real_time_factor": 1.044,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0034,
+      "flagged_words": [
+       {
+        "expected": "cantidad",
+        "heard": "kantidad[de]",
+        "edits": 2
+       },
+       {
+        "expected": "de",
+        "heard": "[∅]e",
+        "edits": 1
+       }
+      ],
+      "word_error_rate": 0.0,
+      "windows": [
+       {
+        "start_s": 0.0,
+        "end_s": 20.0,
+        "pitch_median_hz": 125.7,
+        "loudness_dbfs": -29.1,
+        "syllables_per_second": 5.95
+       },
+       {
+        "start_s": 20.0,
+        "end_s": 40.0,
+        "pitch_median_hz": 128.6,
+        "loudness_dbfs": -30.2,
+        "syllables_per_second": 6.1
+       },
+       {
+        "start_s": 40.0,
+        "end_s": 60.0,
+        "pitch_median_hz": 134.7,
+        "loudness_dbfs": -30.6,
+        "syllables_per_second": 5.25
+       },
+       {
+        "start_s": 60.0,
+        "end_s": 80.0,
+        "pitch_median_hz": 144.4,
+        "loudness_dbfs": -28.0,
+        "syllables_per_second": 5.55
+       },
+       {
+        "start_s": 80.0,
+        "end_s": 100.0,
+        "pitch_median_hz": 140.3,
+        "loudness_dbfs": -27.8,
+        "syllables_per_second": 5.55
+       },
+       {
+        "start_s": 100.0,
+        "end_s": 120.0,
+        "pitch_median_hz": 137.0,
+        "loudness_dbfs": -27.3,
+        "syllables_per_second": 5.4
+       },
+       {
+        "start_s": 120.0,
+        "end_s": 132.3,
+        "pitch_median_hz": 133.9,
+        "loudness_dbfs": -27.5,
+        "syllables_per_second": 6.12
+       }
+      ],
+      "loudness_drift_db": 1.6,
+      "pitch_range_hz": [
+       125.7,
+       144.4
+      ],
+      "variant": "default"
+     }
+    ]
+   }
+  }
+ }
+}

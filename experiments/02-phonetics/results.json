@@ -1,0 +1,726 @@
+{
+ "config": {
+  "voice": "warm_male",
+  "texts": "phonetics.jsonl",
+  "seeds": [
+   0,
+   1
+  ],
+  "engines": {
+   "qwen3-tts-0.6b": {
+    "default": {},
+    "conservative": {
+     "temperature": 0.6,
+     "top_k": 20
+    }
+   }
+  }
+ },
+ "engines": {
+  "qwen3-tts-0.6b": {
+   "environment": {
+    "date_utc": "2026-11-03 09:02",
+    "git_commit": "uncommitted",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "python": "3.12.12",
+    "packages": {
+     "qwen-tts": "0.0.5",
+     "torch": "2.8.0+cu128",
+     "transformers": "4.57.3",
+     "librosa": "0.11.0"
+    }
+   },
+   "voice": "warm_male",
+   "variants": {
+    "default": {},
+    "conservative": {
+     "temperature": 0.6,
+     "top_k": 20
+    }
+   },
+   "results": {
+    "summary": {
+     "default": {
+      "takes": 22,
+      "phonetic_error_rate_mean": 0.0069,
+      "takes_with_flagged_words": 3,
+      "flagged_words": 3,
+      "word_error_rate_mean": 0.0152,
+      "takes_whisper_missed": 1,
+      "real_time_factor_median": 1.099,
+      "hit_token_limit": 0
+     },
+     "conservative": {
+      "takes": 22,
+      "phonetic_error_rate_mean": 0.0083,
+      "takes_with_flagged_words": 3,
+      "flagged_words": 4,
+      "word_error_rate_mean": 0.0216,
+      "takes_whisper_missed": 1,
+      "real_time_factor_median": 1.079,
+      "hit_token_limit": 0
+     }
+    },
+    "takes": [
+     {
+      "text_id": "numbers_dates",
+      "seed": 0,
+      "wav": "default_numbers_dates_seed0.wav",
+      "duration_s": 6.71,
+      "real_time_factor": 1.148,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el tren sale el martes veintitrés de marzo a las siete y cuarto y llega a zaragoza a las diez menos veinte",
+      "whisper_transcript": "El tren sale el martes 23 de marzo a las 7 y cuarto y llega a Zaragoza a las 10 menos 20.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "numbers_dates",
+      "seed": 1,
+      "wav": "default_numbers_dates_seed1.wav",
+      "duration_s": 5.59,
+      "real_time_factor": 1.048,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0119,
+      "flagged_words": [
+       {
+        "expected": "el",
+        "heard": "e[n]",
+        "edits": 1
+       }
+      ],
+      "ctc_transcript": "el tren sale en martes veintitrés de marzo a las siete y cuarto y llega a zaragoza a las diez menos veinte",
+      "whisper_transcript": "El tren sale el martes 23 de marzo a las 7 y cuarto y llega a Zaragoza a las 10 menos 20.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "money_percent",
+      "seed": 0,
+      "wav": "default_money_percent_seed0.wav",
+      "duration_s": 6.07,
+      "real_time_factor": 1.092,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0115,
+      "flagged_words": [],
+      "ctc_transcript": "el precio subió un doce por ciento pasó de ochenta y cinco euros a noveinta y cinco euros con veinte céntimos",
+      "whisper_transcript": "El precio subió un 12%, pasó de 85 euros a 95 euros con 20 céntimos.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "money_percent",
+      "seed": 1,
+      "wav": "default_money_percent_seed1.wav",
+      "duration_s": 5.91,
+      "real_time_factor": 1.081,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el precio subió un doce por ciento pasó de ochenta y cinco euros a noventa y cinco euros con veinte céntimos",
+      "whisper_transcript": "El precio subió un 12%. Pasó de 85 euros a 95 euros con 20 céntimos.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "z_c_distinction",
+      "seed": 0,
+      "wav": "default_z_c_distinction_seed0.wav",
+      "duration_s": 5.91,
+      "real_time_factor": 1.068,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "cecilia cocinó una cazuela de calabacín con cebolla y zanahoria para cenar con sus cinco sobrinos",
+      "whisper_transcript": "Cecilia cocinó una cazuela de calabacín con cebolla y zanahoria para cenar con sus cinco sobrinos.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "z_c_distinction",
+      "seed": 1,
+      "wav": "default_z_c_distinction_seed1.wav",
+      "duration_s": 5.43,
+      "real_time_factor": 1.103,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "cecilia cocinó una cazuela de calabacín con cebolla y zana oria para cenar con sus cinco sobrinos",
+      "whisper_transcript": "Cecilia cocinó una cazuela de calabacín con cebolla y zanahoria para cenar con sus cinco sobrinos.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "proper_names",
+      "seed": 0,
+      "wav": "default_proper_names_seed0.wav",
+      "duration_s": 7.67,
+      "real_time_factor": 1.1,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.038,
+      "flagged_words": [
+       {
+        "expected": "Sanxenxo",
+        "heard": "san[z]en[∅]so",
+        "edits": 3
+       }
+      ],
+      "ctc_transcript": "mañana visitaremos girona sancenso y jerez de la frontera con joaquín ainhoa xhavier y begoña",
+      "whisper_transcript": "Mañana visitaremos Girona, San Censo y Jerez de la Frontera con Joaquín, Ainhoa, Xavier y Begoña.",
+      "word_error_rate": 0.1333,
+      "variant": "default"
+     },
+     {
+      "text_id": "proper_names",
+      "seed": 1,
+      "wav": "default_proper_names_seed1.wav",
+      "duration_s": 7.43,
+      "real_time_factor": 1.113,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0506,
+      "flagged_words": [
+       {
+        "expected": "Sanxenxo",
+        "heard": "san[z]en[∅]so",
+        "edits": 3
+       }
+      ],
+      "ctc_transcript": "mañana visitaremos girona sancenso y jerez de la frontera con joaquín ainhoa xavier y begogña",
+      "whisper_transcript": "Mañana visitaremos Girona, San Senso y Jerez de la Frontera con Joaquín, Ainhoa, Javier y Begoña.",
+      "word_error_rate": 0.2,
+      "variant": "default"
+     },
+     {
+      "text_id": "jota_and_g",
+      "seed": 0,
+      "wav": "default_jota_and_g_seed0.wav",
+      "duration_s": 6.15,
+      "real_time_factor": 1.084,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el jefe de la expedición jamás se rindió ante el gigantesco glaciar aunque el viaje fue largo y agotador",
+      "whisper_transcript": "El jefe de la expedición jamás se rindió ante el gigantesco glaciar, aunque el viaje fue largo y agotador.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "jota_and_g",
+      "seed": 1,
+      "wav": "default_jota_and_g_seed1.wav",
+      "duration_s": 6.37,
+      "real_time_factor": 1.13,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el jefe de la expedición jamás se rindió ante el gigantesco glaciar aunque el viaje fue largo y agotador",
+      "whisper_transcript": "El jefe de la expedición jamás se rindió ante el gigantesco glaciar, aunque el viaje fue largo y agotador.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "trilled_r",
+      "seed": 0,
+      "wav": "default_trilled_r_seed0.wav",
+      "duration_s": 4.87,
+      "real_time_factor": 1.059,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el perro de ramón corre por la carretera mientras el ruido del tren retumba en el barranco",
+      "whisper_transcript": "El perro de Ramón corre por la carretera mientras el ruido del tren retumba en el barranco.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "trilled_r",
+      "seed": 1,
+      "wav": "default_trilled_r_seed1.wav",
+      "duration_s": 4.23,
+      "real_time_factor": 1.098,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el perro de ramón corre por la carretera mientras el ruido del tren retumba en el barranco",
+      "whisper_transcript": "El perro de Ramón corre por la carretera mientras el ruido del tren retumba en el barranco.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "ll_y_enye",
+      "seed": 0,
+      "wav": "default_ll_y_enye_seed0.wav",
+      "duration_s": 5.35,
+      "real_time_factor": 1.106,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "la lluvia de otoño lleno de charcos el camino que lleva a la montaña donde vive mi abuela",
+      "whisper_transcript": "La lluvia de otoño llenó de charcos el camino que lleva a la montaña donde vive mi abuela.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "ll_y_enye",
+      "seed": 1,
+      "wav": "default_ll_y_enye_seed1.wav",
+      "duration_s": 4.39,
+      "real_time_factor": 1.045,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "la lluvia de otoño llenó de charcos el camino que lleva a la montaña donde vive mi abuela",
+      "whisper_transcript": "La lluvia de otoño llenó de charcos el camino que lleva a la montaña donde vive mi abuela.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "long_words",
+      "seed": 0,
+      "wav": "default_long_words_seed0.wav",
+      "duration_s": 7.43,
+      "real_time_factor": 1.1,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0194,
+      "flagged_words": [],
+      "ctc_transcript": "de soxirribonucleico o torrino larinólogo y electroencefalograma son palabras largas que conviene pronunciar de espacio",
+      "whisper_transcript": "Desoxirribonucleico, otorrinolaringólogo y electroencefalograma son palabras largas que conviene pronunciar despacio.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "long_words",
+      "seed": 1,
+      "wav": "default_long_words_seed1.wav",
+      "duration_s": 7.27,
+      "real_time_factor": 1.09,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0097,
+      "flagged_words": [],
+      "ctc_transcript": "de soxirribo nucleico otorrinolaringólogo y electroencefalograma son palabras largas que conviene pronunciar de espacio",
+      "whisper_transcript": "desoxirribonucleico, otorrinolaringólogo y electroencefalograma son palabras largas que conviene pronunciar despacio.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "loanwords_tech",
+      "seed": 0,
+      "wav": "default_loanwords_tech_seed0.wav",
+      "duration_s": 6.71,
+      "real_time_factor": 1.136,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el modelo de lenguaje se entrena en una tarjeta gráfica con veinticuatro gigas de memoria y después se publica en internet",
+      "whisper_transcript": "El modelo de lenguaje se entrena en una tarjeta gráfica con 24 GB de memoria y después se publica en Internet.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "loanwords_tech",
+      "seed": 1,
+      "wav": "default_loanwords_tech_seed1.wav",
+      "duration_s": 6.79,
+      "real_time_factor": 1.183,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0098,
+      "flagged_words": [],
+      "ctc_transcript": "el modelo de lenguaje se entrena en una tarjeta gráfica con veinticuatro gigas de memoria y después se publica en internett",
+      "whisper_transcript": "El modelo de lenguaje se entrena en una tarjeta gráfica con 24 GB de memoria y después se publica en Internet.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "questions",
+      "seed": 0,
+      "wav": "default_questions_seed0.wav",
+      "duration_s": 5.99,
+      "real_time_factor": 1.133,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "de verdad has terminado ya el informe  qué rapidez pues entonces podemos salir antes y tomar algo",
+      "whisper_transcript": "¿De verdad has terminado ya el informe? ¡Qué rapidez! Pues entonces podemos salir antes y tomar algo.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "questions",
+      "seed": 1,
+      "wav": "default_questions_seed1.wav",
+      "duration_s": 6.07,
+      "real_time_factor": 1.073,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "de verdad has terminado ya el informe qué rapidez pues entonces podemos salir antes y tomar algo",
+      "whisper_transcript": "¿De verdad has terminado ya el informe? ¡Qué rapidez! Pues entonces podemos salir antes y tomar algo.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "long_sentence",
+      "seed": 0,
+      "wav": "default_long_sentence_seed0.wav",
+      "duration_s": 12.87,
+      "real_time_factor": 1.092,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "aunque la previsión anunciaba lluvia durante toda la semana los vecinos del pueblo decidieron celebrar la fiesta en la plaza convencidos de que si el cielo se nublaba siempre podrían refugiarse en el viejo mercado",
+      "whisper_transcript": "Aunque la previsión anunciaba lluvia durante toda la semana, los vecinos del pueblo decidieron celebrar la fiesta en la plaza, convencidos de que, si el cielo se nublaba, siempre podrían refugiarse en el viejo mercado.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "long_sentence",
+      "seed": 1,
+      "wav": "default_long_sentence_seed1.wav",
+      "duration_s": 12.23,
+      "real_time_factor": 1.121,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "aunque la previsión anunciaba lluvia durante toda la semana los vecinos del pueblo decidieron celebrar la fiesta en la plaza convencidos de que si el cielo se nublaba siempre podrían refugiarse en el viejo mercado",
+      "whisper_transcript": "Aunque la previsión anunciaba lluvia durante toda la semana, los vecinos del pueblo decidieron celebrar la fiesta en la plaza, convencidos de que, si el cielo se nublaba, siempre podrían refugiarse en el viejo mercado.",
+      "word_error_rate": 0.0,
+      "variant": "default"
+     },
+     {
+      "text_id": "numbers_dates",
+      "seed": 0,
+      "wav": "conservative_numbers_dates_seed0.wav",
+      "duration_s": 6.95,
+      "real_time_factor": 1.08,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el tren sale el martes veintitrés de marzo a las siete y cuarto y llega a zaragoza a las diez menos veinte",
+      "whisper_transcript": "El tren sale el martes 23 de marzo a las 7 y cuarto y llega a Zaragoza a las 10 menos 20.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "numbers_dates",
+      "seed": 1,
+      "wav": "conservative_numbers_dates_seed1.wav",
+      "duration_s": 5.35,
+      "real_time_factor": 1.075,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0119,
+      "flagged_words": [
+       {
+        "expected": "el",
+        "heard": "e[n]",
+        "edits": 1
+       }
+      ],
+      "ctc_transcript": "el tren sale en martes veintitres de marzo a las siete y cuarto y llega a zaragoza a las diez menos veinte",
+      "whisper_transcript": "El tren sale el martes 23 de marzo a las 7 y cuarto y llega a Zaragoza a las 10 menos 20.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "money_percent",
+      "seed": 0,
+      "wav": "conservative_money_percent_seed0.wav",
+      "duration_s": 6.55,
+      "real_time_factor": 1.087,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el precio subió un doce por ciento pasó de ochenta y cinco euros a noventa y cinco euros con veinte céntimos",
+      "whisper_transcript": "El precio subió un 12%, pasó de 85 euros a 95 euros, con 20 céntimos.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "money_percent",
+      "seed": 1,
+      "wav": "conservative_money_percent_seed1.wav",
+      "duration_s": 6.47,
+      "real_time_factor": 1.113,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el precio subió un doce por ciento pasó de ochenta y cinco euros a noventa y cinco euros con veinte céntimos",
+      "whisper_transcript": "El precio subió un 12%. Pasó de 85 euros a 95,20 euros.",
+      "word_error_rate": 0.1429,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "z_c_distinction",
+      "seed": 0,
+      "wav": "conservative_z_c_distinction_seed0.wav",
+      "duration_s": 5.83,
+      "real_time_factor": 1.136,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "cecilia cocinó una cazuela de calabacín con cebolla y zanahoria para cenar con sus cinco sobrinos",
+      "whisper_transcript": "Cecilia cocinó una cazuela de calabacín con cebolla y zanahoria para cenar con sus cinco sobrinos.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "z_c_distinction",
+      "seed": 1,
+      "wav": "conservative_z_c_distinction_seed1.wav",
+      "duration_s": 5.83,
+      "real_time_factor": 1.11,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "cecilia cocinó una cazuela de calabacín con cebolla y zana oria para cenar con sus cinco sobrinos",
+      "whisper_transcript": "Cecilia cocinó una cazuela de calabacín con cebolla y zanahoria para cenar con sus cinco sobrinos.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "proper_names",
+      "seed": 0,
+      "wav": "conservative_proper_names_seed0.wav",
+      "duration_s": 8.15,
+      "real_time_factor": 1.096,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0886,
+      "flagged_words": [
+       {
+        "expected": "Sanxenxo",
+        "heard": "san[z]en[∅]so",
+        "edits": 3
+       },
+       {
+        "expected": "Xavier",
+        "heard": "[∅]s[ji]abier",
+        "edits": 3
+       }
+      ],
+      "ctc_transcript": "mañana visitaremos girona sancenso y jerez de la frontera con joaquín aiñhoa sjiavier y begoña",
+      "whisper_transcript": "Mañana visitaremos Girona, San Censo y Jerez de la frontera con Joaquín, Ainhoa, Javier y Begoña.",
+      "word_error_rate": 0.2,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "proper_names",
+      "seed": 1,
+      "wav": "conservative_proper_names_seed1.wav",
+      "duration_s": 7.27,
+      "real_time_factor": 1.093,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0633,
+      "flagged_words": [
+       {
+        "expected": "Sanxenxo",
+        "heard": "san[z]en[∅]so",
+        "edits": 3
+       }
+      ],
+      "ctc_transcript": "mañana visitaremos irona sancenso y jerez de la frontera con joaquín aiñhoa xavier y begoña",
+      "whisper_transcript": "Mañana visitaremos Girona, San Censo y Jerez de la Frontera con Joaquín, Ainhoa, Xavier y Begoña.",
+      "word_error_rate": 0.1333,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "jota_and_g",
+      "seed": 0,
+      "wav": "conservative_jota_and_g_seed0.wav",
+      "duration_s": 7.27,
+      "real_time_factor": 1.114,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el jefe de la expedición jamás se rindió ante el gigantesco glaciar aunque el viaje fue largo y agotador",
+      "whisper_transcript": "El jefe de la expedición jamás se rindió ante el gigantesco glaciar, aunque el viaje fue largo y agotador.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "jota_and_g",
+      "seed": 1,
+      "wav": "conservative_jota_and_g_seed1.wav",
+      "duration_s": 6.39,
+      "real_time_factor": 1.068,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el jefe de la expedición jamás se rindió ante el gigantesco glaciar aunque el viaje fue largo y agotador",
+      "whisper_transcript": "El jefe de la expedición jamás se rindió ante el gigantesco glaciar, aunque el viaje fue largo y agotador.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "trilled_r",
+      "seed": 0,
+      "wav": "conservative_trilled_r_seed0.wav",
+      "duration_s": 5.19,
+      "real_time_factor": 1.053,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el perro de ramón corre por la carretera mientras el ruido del tren retumba en el barranco",
+      "whisper_transcript": "El perro de Ramón corre por la carretera mientras el ruido del tren retumba en el barranco.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "trilled_r",
+      "seed": 1,
+      "wav": "conservative_trilled_r_seed1.wav",
+      "duration_s": 5.51,
+      "real_time_factor": 1.085,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el perro de ramón corre por la carretera mientras el ruido del tren retumba en el barranco",
+      "whisper_transcript": "El perro de Ramón corre por la carretera mientras el ruido del tren retumba en el barranco.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "ll_y_enye",
+      "seed": 0,
+      "wav": "conservative_ll_y_enye_seed0.wav",
+      "duration_s": 4.95,
+      "real_time_factor": 1.05,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "la lluvia de otoño lleno de charcos el camino que lleva a la montaña donde vive mi abuela",
+      "whisper_transcript": "La lluvia de otoño llenó de charcos el camino que lleva a la montaña donde vive mi abuela.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "ll_y_enye",
+      "seed": 1,
+      "wav": "conservative_ll_y_enye_seed1.wav",
+      "duration_s": 4.55,
+      "real_time_factor": 1.044,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "la lluvia de otoño llenó de charcos el camino que lleva a la montaña donde vive mi abuela",
+      "whisper_transcript": "La lluvia de otoño llenó de charcos el camino que lleva a la montaña donde vive mi abuela.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "long_words",
+      "seed": 0,
+      "wav": "conservative_long_words_seed0.wav",
+      "duration_s": 8.31,
+      "real_time_factor": 1.06,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0097,
+      "flagged_words": [],
+      "ctc_transcript": "de soxirribo nucleico otorrino laringólogo y electroencefalograma son palabras largas que conviene pronunciar de espacio",
+      "whisper_transcript": "Desoxirribonucleico, otorrinolaringólogo y electroencefalograma son palabras largas que conviene pronunciar despacio.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "long_words",
+      "seed": 1,
+      "wav": "conservative_long_words_seed1.wav",
+      "duration_s": 7.27,
+      "real_time_factor": 1.047,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0097,
+      "flagged_words": [],
+      "ctc_transcript": "de soxirribo nucleico otorrino laringólogo y electroencefalograma son palabras largas que conviene pronunciar de espacio",
+      "whisper_transcript": "desoxirribonucleico, otorrinolaringólogo y electroencefalograma son palabras largas que conviene pronunciar despacio.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "loanwords_tech",
+      "seed": 0,
+      "wav": "conservative_loanwords_tech_seed0.wav",
+      "duration_s": 6.87,
+      "real_time_factor": 1.103,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el modelo de lenguaje se entrena en una tarjeta gráfica con veinticuatro gigas de memoria y después se publica en internet",
+      "whisper_transcript": "El modelo de lenguaje se entrena en una tarjeta gráfica con 24 GB de memoria y después se publica en Internet.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "loanwords_tech",
+      "seed": 1,
+      "wav": "conservative_loanwords_tech_seed1.wav",
+      "duration_s": 6.23,
+      "real_time_factor": 1.056,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "el modelo de lenguaje se entrena en una tarjeta gráfica con veinticuatro gigas de memoria y después se publica en internet",
+      "whisper_transcript": "El modelo de lenguaje se entrena en una tarjeta gráfica con 24 GB de memoria y después se publica en Internet.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "questions",
+      "seed": 0,
+      "wav": "conservative_questions_seed0.wav",
+      "duration_s": 6.07,
+      "real_time_factor": 1.065,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "de verdad has terminado ya el informe qué rapidez pues entonces podemos salir antes y tomar algo",
+      "whisper_transcript": "¿De verdad has terminado ya el informe? ¡Qué rapidez! Pues entonces podemos salir antes y tomar algo.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "questions",
+      "seed": 1,
+      "wav": "conservative_questions_seed1.wav",
+      "duration_s": 6.63,
+      "real_time_factor": 1.079,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "de verdad has terminado ya el informe qué rapidez pues entonces podemos salir antes y tomar algo",
+      "whisper_transcript": "¿De verdad has terminado ya el informe? ¡Qué rapidez! Pues entonces podemos salir antes y tomar algo.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "long_sentence",
+      "seed": 0,
+      "wav": "conservative_long_sentence_seed0.wav",
+      "duration_s": 13.25,
+      "real_time_factor": 1.096,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "aunque la previsión anunciaba lluvia durante toda la semana los vecinos del pueblo decidieron celebrar la fiesta en la plazaconvencidos de que si el cielo se nublaba siempre podrían refugiarse en el viejo mercado",
+      "whisper_transcript": "Aunque la previsión anunciaba lluvia durante toda la semana, los vecinos del pueblo decidieron celebrar la fiesta en la plaza, convencidos de que, si el cielo se nublaba, siempre podrían refugiarse en el viejo mercado.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     },
+     {
+      "text_id": "long_sentence",
+      "seed": 1,
+      "wav": "conservative_long_sentence_seed1.wav",
+      "duration_s": 12.71,
+      "real_time_factor": 1.063,
+      "hit_token_limit": false,
+      "phonetic_error_rate": 0.0,
+      "flagged_words": [],
+      "ctc_transcript": "aunque la previsión anunciaba lluvia durante toda la semana los vecinos del pueblo decidieron celebrar la fiesta en la plazaconvencidos de que si el cielo se nublaba siempre podrían refugiarse en el viejo mercado",
+      "whisper_transcript": "Aunque la previsión anunciaba lluvia durante toda la semana, los vecinos del pueblo decidieron celebrar la fiesta en la plaza. Convencidos de que, si el cielo se nublaba, siempre podrían refugiarse en el viejo mercado.",
+      "word_error_rate": 0.0,
+      "variant": "conservative"
+     }
+    ]
+   }
+  }
+ }
+}

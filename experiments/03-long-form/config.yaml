@@ -1,0 +1,12 @@
+voice: warm_male  # cloned by engines that can clone; the others use their built-in voice
+text: long_form_ai.txt  # ~375 words, about two minutes of speech
+seeds: [0, 1]
+modes:
+  one_shot: the whole text in a single generation
+  per_sentence: one generation per sentence, joined with a short silence (how a voice gateway usually feeds a TTS)
+sentence_gap_seconds: 0.25
+window_seconds: 20
+# engine name -> variants: name -> setting overrides on top of the engine defaults
+engines:
+  qwen3-tts-0.6b:
+    default: {max_new_tokens: 3000}  # 240 s of audio: room for the whole text in a single generation

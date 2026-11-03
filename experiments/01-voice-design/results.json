@@ -1,0 +1,326 @@
+{
+ "environment": {
+  "date_utc": "2026-11-03 08:04",
+  "git_commit": "uncommitted",
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "python": "3.12.12",
+  "packages": {
+   "qwen-tts": "0.0.5",
+   "torch": "2.8.0+cu128",
+   "transformers": "4.57.3",
+   "librosa": "0.11.0"
+  }
+ },
+ "config": {
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "reference_text": "Hola, buenas tardes, gracias por llamar. Cuénteme con calma qué necesita y, si le falta algún dato, no se preocupe: lo vemos juntos paso a paso.",
+  "seeds": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "sampling": {},
+  "voices": {
+   "warm_male": {
+    "pick": "calmest",
+    "descriptions": {
+     "english": "A man in his mid forties with a warm, friendly, medium-deep voice. Kind, calm and reassuring, professional but approachable, smiling while he speaks. Clear, unhurried pace. Native Castilian Spanish accent from Spain.",
+     "spanish": "Hombre de unos cuarenta y cinco años, voz grave pero cálida y cercana. Tono amable, tranquilo y profesional, con una sonrisa en la voz. Ritmo pausado y claro. Castellano peninsular de España."
+    }
+   },
+   "warm_male_energetic": {
+    "pick": "liveliest",
+    "descriptions": {
+     "english": "The same man in his mid forties, but very excited and enthusiastic, almost euphoric: high energy, a high and rising pitch, fast pace and big swings in intonation. Native Castilian Spanish accent from Spain."
+    }
+   }
+  },
+  "selection": {
+   "max_word_error_rate": 0.0,
+   "max_flagged_words": 0
+  }
+ },
+ "results": {
+  "candidates": [
+   {
+    "voice": "warm_male",
+    "description_language": "english",
+    "seed": 0,
+    "wav": "warm_male_english_seed0.wav",
+    "duration_s": 10.86,
+    "real_time_factor": 1.171,
+    "phonetic_error_rate": 0.0,
+    "flagged_words": [],
+    "word_error_rate": 0.0,
+    "whisper_transcript": "Hola, buenas tardes, gracias por llamar. Cuénteme con calma qué necesita y, si le falta algún dato, no se preocupe. Lo vemos juntos, paso a paso.",
+    "profile": {
+     "pitch_median_hz": 144.36,
+     "pitch_p95_hz": 178.04,
+     "pitch_spread_semitones": 2.93,
+     "centroid_median_hz": 1365.02,
+     "centroid_p95_hz": 3160.12,
+     "loudness_dbfs": -24.3
+    }
+   },
+   {
+    "voice": "warm_male",
+    "description_language": "english",
+    "seed": 1,
+    "wav": "warm_male_english_seed1.wav",
+    "duration_s": 11.02,
+    "real_time_factor": 1.074,
+    "phonetic_error_rate": 0.0,
+    "flagged_words": [],
+    "word_error_rate": 0.0,
+    "whisper_transcript": "Hola, buenas tardes. Gracias por llamar. Cuénteme con calma qué necesita y si le falta algún dato, no se preocupe. Lo vemos juntos paso a paso.",
+    "profile": {
+     "pitch_median_hz": 162.98,
+     "pitch_p95_hz": 246.48,
+     "pitch_spread_semitones": 3.68,
+     "centroid_median_hz": 1364.98,
+     "centroid_p95_hz": 2653.65,
+     "loudness_dbfs": -20.23
+    }
+   },
+   {
+    "voice": "warm_male",
+    "description_language": "english",
+    "seed": 2,
+    "wav": "warm_male_english_seed2.wav",
+    "duration_s": 10.38,
+    "real_time_factor": 1.071,
+    "phonetic_error_rate": 0.0,
+    "flagged_words": [],
+    "word_error_rate": 0.0,
+    "whisper_transcript": "Hola, buenas tardes. Gracias por llamar. Cuénteme con calma que necesita y, si le falta algún dato, no se preocupe. Lo vemos juntos paso a paso.",
+    "profile": {
+     "pitch_median_hz": 94.15,
+     "pitch_p95_hz": 122.8,
+     "pitch_spread_semitones": 3.53,
+     "centroid_median_hz": 1104.02,
+     "centroid_p95_hz": 3747.84,
+     "loudness_dbfs": -22.96
+    }
+   },
+   {
+    "voice": "warm_male",
+    "description_language": "english",
+    "seed": 3,
+    "wav": "warm_male_english_seed3.wav",
+    "duration_s": 8.38,
+    "real_time_factor": 1.061,
+    "phonetic_error_rate": 0.0092,
+    "flagged_words": [],
+    "word_error_rate": 0.0,
+    "whisper_transcript": "Hola, buenas tardes, gracias por llamar. Cuénteme con calma qué necesita y si le falta algún dato, no se preocupe. Lo vemos juntos paso a paso.",
+    "profile": {
+     "pitch_median_hz": 199.5,
+     "pitch_p95_hz": 241.39,
+     "pitch_spread_semitones": 3.19,
+     "centroid_median_hz": 1339.03,
+     "centroid_p95_hz": 2678.5,
+     "loudness_dbfs": -21.04
+    }
+   },
+   {
+    "voice": "warm_male",
+    "description_language": "spanish",
+    "seed": 0,
+    "wav": "warm_male_spanish_seed0.wav",
+    "duration_s": 10.22,
+    "real_time_factor": 1.061,
+    "phonetic_error_rate": 0.0,
+    "flagged_words": [],
+    "word_error_rate": 0.0,
+    "whisper_transcript": "Hola, buenas tardes, gracias por llamar. Cuénteme con calma qué necesita y, si le falta algún dato, no se preocupe. Lo vemos juntos paso a paso.",
+    "profile": {
+     "pitch_median_hz": 148.59,
+     "pitch_p95_hz": 200.65,
+     "pitch_spread_semitones": 4.49,
+     "centroid_median_hz": 1367.68,
+     "centroid_p95_hz": 2772.46,
+     "loudness_dbfs": -22.86
+    }
+   },
+   {
+    "voice": "warm_male",
+    "description_language": "spanish",
+    "seed": 1,
+    "wav": "warm_male_spanish_seed1.wav",
+    "duration_s": 8.86,
+    "real_time_factor": 1.048,
+    "phonetic_error_rate": 0.0,
+    "flagged_words": [],
+    "word_error_rate": 0.0,
+    "whisper_transcript": "Hola, buenas tardes. Gracias por llamar. Cuénteme con calma que necesita. Y si le falta algún dato, no se preocupe. Lo vemos juntos paso a paso.",
+    "profile": {
+     "pitch_median_hz": 128.24,
+     "pitch_p95_hz": 192.7,
+     "pitch_spread_semitones": 4.27,
+     "centroid_median_hz": 1197.57,
+     "centroid_p95_hz": 3436.36,
+     "loudness_dbfs": -18.84
+    }
+   },
+   {
+    "voice": "warm_male",
+    "description_language": "spanish",
+    "seed": 2,
+    "wav": "warm_male_spanish_seed2.wav",
+    "duration_s": 9.34,
+    "real_time_factor": 1.037,
+    "phonetic_error_rate": 0.0092,
+    "flagged_words": [
+     {
+      "expected": "y,",
+      "heard": "[y]",
+      "edits": 1
+     }
+    ],
+    "word_error_rate": 0.0,
+    "whisper_transcript": "Hola, buenas tardes. Gracias por llamar. Cuénteme con calma qué necesita y si le falta algún dato, no se preocupe. Lo vemos juntos paso a paso.",
+    "profile": {
+     "pitch_median_hz": 122.1,
+     "pitch_p95_hz": 186.14,
+     "pitch_spread_semitones": 4.44,
+     "centroid_median_hz": 1099.65,
+     "centroid_p95_hz": 2707.56,
+     "loudness_dbfs": -20.96
+    }
+   },
+   {
+    "voice": "warm_male",
+    "description_language": "spanish",
+    "seed": 3,
+    "wav": "warm_male_spanish_seed3.wav",
+    "duration_s": 11.5,
+    "real_time_factor": 1.058,
+    "phonetic_error_rate": 0.0,
+    "flagged_words": [],
+    "word_error_rate": 0.0,
+    "whisper_transcript": "Hola, buenas tardes. Gracias por llamar. Cuénteme con calma qué necesita y si le falta algún dato, no se preocupe. Lo vemos juntos, paso a paso.",
+    "profile": {
+     "pitch_median_hz": 198.35,
+     "pitch_p95_hz": 285.41,
+     "pitch_spread_semitones": 4.85,
+     "centroid_median_hz": 1602.37,
+     "centroid_p95_hz": 3386.08,
+     "loudness_dbfs": -22.17
+    }
+   },
+   {
+    "voice": "warm_male_energetic",
+    "description_language": "english",
+    "seed": 0,
+    "wav": "warm_male_energetic_english_seed0.wav",
+    "duration_s": 7.66,
+    "real_time_factor": 1.08,
+    "phonetic_error_rate": 0.055,
+    "flagged_words": [
+     {
+      "expected": "buenas",
+      "heard": "[∅]u[∅]nas",
+      "edits": 2
+     },
+     {
+      "expected": "gracias",
+      "heard": "[k]a[k]as",
+      "edits": 4
+     }
+    ],
+    "word_error_rate": 0.0,
+    "whisper_transcript": "Hola, buenas tardes, gracias por llamar. Cuénteme con calma qué necesita y si le falta algún dato, no se preocupe. ¡Lo vemos juntos paso a paso!",
+    "profile": {
+     "pitch_median_hz": 324.08,
+     "pitch_p95_hz": 464.46,
+     "pitch_spread_semitones": 3.81,
+     "centroid_median_hz": 2128.08,
+     "centroid_p95_hz": 3456.75,
+     "loudness_dbfs": -20.38
+    }
+   },
+   {
+    "voice": "warm_male_energetic",
+    "description_language": "english",
+    "seed": 1,
+    "wav": "warm_male_energetic_english_seed1.wav",
+    "duration_s": 8.06,
+    "real_time_factor": 1.088,
+    "phonetic_error_rate": 0.0,
+    "flagged_words": [],
+    "word_error_rate": 0.0,
+    "whisper_transcript": "Hola, buenas tardes, gracias por llamar. Cuénteme con calma qué necesita y si le falta algún dato, no se preocupe. ¡Lo vemos juntos paso a paso!",
+    "profile": {
+     "pitch_median_hz": 263.24,
+     "pitch_p95_hz": 324.37,
+     "pitch_spread_semitones": 2.15,
+     "centroid_median_hz": 1736.9,
+     "centroid_p95_hz": 3239.61,
+     "loudness_dbfs": -18.98
+    }
+   },
+   {
+    "voice": "warm_male_energetic",
+    "description_language": "english",
+    "seed": 2,
+    "wav": "warm_male_energetic_english_seed2.wav",
+    "duration_s": 12.06,
+    "real_time_factor": 1.068,
+    "phonetic_error_rate": 0.0367,
+    "flagged_words": [
+     {
+      "expected": "Hola,",
+      "heard": "[∅]",
+      "edits": 3
+     },
+     {
+      "expected": "a",
+      "heard": "[∅]",
+      "edits": 1
+     }
+    ],
+    "word_error_rate": 0.0,
+    "whisper_transcript": "Hola, buenas tardes, gracias por llamar. Cuénteme con calma qué necesita y si le falta algún dato, no se preocupe. Lo vemos juntos paso a paso.",
+    "profile": {
+     "pitch_median_hz": 419.07,
+     "pitch_p95_hz": 474.49,
+     "pitch_spread_semitones": 2.03,
+     "centroid_median_hz": 2044.84,
+     "centroid_p95_hz": 3386.46,
+     "loudness_dbfs": -22.81
+    }
+   },
+   {
+    "voice": "warm_male_energetic",
+    "description_language": "english",
+    "seed": 3,
+    "wav": "warm_male_energetic_english_seed3.wav",
+    "duration_s": 10.22,
+    "real_time_factor": 1.106,
+    "phonetic_error_rate": 0.0183,
+    "flagged_words": [
+     {
+      "expected": "Hola,",
+      "heard": "[∅]a",
+      "edits": 2
+     }
+    ],
+    "word_error_rate": 0.0,
+    "whisper_transcript": "Hola, buenas tardes. Gracias por llamar. Cuénteme con calma qué necesita y si le falta algún dato, no se preocupe. Lo vemos juntos paso a paso.",
+    "profile": {
+     "pitch_median_hz": 285.41,
+     "pitch_p95_hz": 370.13,
+     "pitch_spread_semitones": 3.49,
+     "centroid_median_hz": 2399.87,
+     "centroid_p95_hz": 3399.67,
+     "loudness_dbfs": -20.04
+    }
+   }
+  ],
+  "chosen": {
+   "warm_male": "warm_male_english_seed0.wav",
+   "warm_male_energetic": "warm_male_energetic_english_seed1.wav"
+  }
+ }
+}

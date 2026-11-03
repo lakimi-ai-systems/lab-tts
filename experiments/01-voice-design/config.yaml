@@ -1,0 +1,29 @@
+model: Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign
+# What every candidate says; it becomes the transcript of the chosen reference (~10 s of speech)
+reference_text: "Hola, buenas tardes, gracias por llamar. Cuénteme con calma qué necesita y, si le falta algún dato, no se preocupe: lo vemos juntos paso a paso."
+seeds: [0, 1, 2, 3]
+sampling: {}  # model defaults (see labtts.models.Sampling)
+
+voices:
+  warm_male:
+    # The voice used by the other experiments: pick the calmest intelligible take
+    pick: calmest
+    descriptions:
+      english: >-
+        A man in his mid forties with a warm, friendly, medium-deep voice. Kind, calm and reassuring, professional but
+        approachable, smiling while he speaks. Clear, unhurried pace. Native Castilian Spanish accent from Spain.
+      spanish: >-
+        Hombre de unos cuarenta y cinco años, voz grave pero cálida y cercana. Tono amable, tranquilo y profesional, con
+        una sonrisa en la voz. Ritmo pausado y claro. Castellano peninsular de España.
+  warm_male_energetic:
+    # A deliberately lively reference, used by experiment 04 as the "bad reference" case: pick the liveliest take
+    pick: liveliest
+    descriptions:
+      english: >-
+        The same man in his mid forties, but very excited and enthusiastic, almost euphoric: high energy, a high and
+        rising pitch, fast pace and big swings in intonation. Native Castilian Spanish accent from Spain.
+
+selection:
+  # A take is eligible only if Whisper hears every word and the phonetic judge finds no mispronounced word
+  max_word_error_rate: 0.0
+  max_flagged_words: 0

@@ -1,0 +1,8 @@
+voice: warm_male  # cloned by engines that can clone; the others use their built-in voice
+texts: phonetics.jsonl
+seeds: [0, 1]
+# engine name (see labtts/engines/__init__.py) -> variants: name -> setting overrides on top of the engine defaults
+engines:
+  qwen3-tts-0.6b:
+    default: {}  # the model's generation_config.json: temperature 0.9, top-k 50
+    conservative: {temperature: 0.6, top_k: 20}
