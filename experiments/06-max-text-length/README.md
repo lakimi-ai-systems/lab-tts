@@ -28,6 +28,20 @@ voices from experiment 01).
 | audio8-air | cloned | qwen3-tts-1.7b-voicedesign/warm_male | 12 | 201 | 0/2 | 1.8 | 0.985 | 0 |
 | audio8-air | cloned | qwen3-tts-1.7b-voicedesign/warm_male | 16 | 278 | 0/2 | 5.3 | 0.98 | 0 |
 | audio8-air | cloned | qwen3-tts-1.7b-voicedesign/warm_male | 22 | 375 | 0/2 | 2.4 | 0.985 | 0 |
+| ming-tts-0.5b | single_generation | qwen3-tts-1.7b-voicedesign/warm_male | 1 | 12 | 2/2 | 4.0 | 0.0 | 0 |
+| ming-tts-0.5b | single_generation | qwen3-tts-1.7b-voicedesign/warm_male | 2 | 42 | 2/2 | 10.9 | 0.0 | 0 |
+| ming-tts-0.5b | single_generation | qwen3-tts-1.7b-voicedesign/warm_male | 4 | 68 | 0/2 | 14.9 | 0.147 | 2 |
+| ming-tts-0.5b | single_generation | qwen3-tts-1.7b-voicedesign/warm_male | 8 | 153 | 0/2 | 4.6 | 0.889 | 2 |
+| ming-tts-0.5b | single_generation | qwen3-tts-1.7b-voicedesign/warm_male | 12 | 201 | 0/2 | 0.1 | 0.995 | 2 |
+| ming-tts-0.5b | single_generation | qwen3-tts-1.7b-voicedesign/warm_male | 16 | 278 | 0/2 | 0.1 | 0.996 | 2 |
+| ming-tts-0.5b | single_generation | qwen3-tts-1.7b-voicedesign/warm_male | 22 | 375 | 0/2 | 0.1 | 0.995 | 2 |
+| ming-tts-0.5b | default | qwen3-tts-1.7b-voicedesign/warm_male | 1 | 12 | 2/2 | 4.0 | 0.0 | 0 |
+| ming-tts-0.5b | default | qwen3-tts-1.7b-voicedesign/warm_male | 2 | 42 | 2/2 | 11.8 | 0.0 | 0 |
+| ming-tts-0.5b | default | qwen3-tts-1.7b-voicedesign/warm_male | 4 | 68 | 2/2 | 20.4 | 0.0 | 0 |
+| ming-tts-0.5b | default | qwen3-tts-1.7b-voicedesign/warm_male | 8 | 153 | 2/2 | 49.6 | 0.006 | 0 |
+| ming-tts-0.5b | default | qwen3-tts-1.7b-voicedesign/warm_male | 12 | 201 | 2/2 | 65.4 | 0.005 | 0 |
+| ming-tts-0.5b | default | qwen3-tts-1.7b-voicedesign/warm_male | 16 | 278 | 2/2 | 89.4 | 0.007 | 0 |
+| ming-tts-0.5b | default | qwen3-tts-1.7b-voicedesign/warm_male | 22 | 375 | 2/2 | 117.2 | 0.007 | 0 |
 <!-- results:end -->
 
 ## Conclusion
@@ -42,6 +56,13 @@ voices from experiment 01).
   what it was trained on.
 - **In practice:** with Audio8, keep each call to a sentence or two (under ~70 words or ~25 s of speech) and join
   the audio. Qwen can take whole paragraphs, which also sounds more natural (see [experiment 03](../03-long-form)).
+
+- **Ming-3.0-tts 0.5B fits about 20 seconds per generation, by design.** Its prompt, reference and generated audio
+  share 512 positions (0.08 s of audio each), so with the ~10 s reference a single generation
+  (`single_generation`) reads two sentences (42 words) and is cut at 14.9 s on four; from twelve sentences on, the
+  text alone fills the context and nothing is generated. Its own API (`default`) works around it by splitting the
+  text into fragments of about 24 words, and so reads the whole 375 words (WER 0.007, 117 s). A shorter reference
+  leaves more room.
 
 ## Limitations
 

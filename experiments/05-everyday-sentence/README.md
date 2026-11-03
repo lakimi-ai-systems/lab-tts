@@ -8,7 +8,8 @@ particular, where does Audio8-TTS-Realistic-Air's "out of breath" feel come from
 
 - `qwen3-tts-0.6b` cloning the designed `warm_male` voice;
 - `audio8-air` with its built-in voice (as in the post) and cloning the same `warm_male` voice, for a like-for-like
-  comparison.
+  comparison;
+- `ming-tts-0.5b` cloning the same voice.
 
 Every take is judged for pronunciation and for **pauses**: stretches of at least 0.2 s more than 20 dB below the
 speech level, whether silence or breath. Seed 0 of each variant gets a waveform video
@@ -25,6 +26,7 @@ voices from experiment 01; `ffmpeg` for the videos).
 | qwen3-tts-0.6b | default | qwen3-tts-1.7b-voicedesign/warm_male | 4 | 15.2 | 2.6 | 17% | 0.6 | 0.0036 | — | 0.0 | 1.01 |
 | audio8-air | built_in_voice | built-in | 4 | 17.0 | 3.4 | 20% | 0.78 | 0.0072 | Hola,→o[∅], Hola,→o[∅] | 0.0 | 1.0 |
 | audio8-air | cloned | qwen3-tts-1.7b-voicedesign/warm_male | 4 | 19.3 | 5.2 | 27% | 1.06 | 0.0 | — | 0.0 | 0.97 |
+| ming-tts-0.5b | default | qwen3-tts-1.7b-voicedesign/warm_male | 4 | 13.5 | 2.6 | 19% | 0.6 | 0.0036 | — | 0.0 | 0.96 |
 
 ### Every take
 
@@ -42,11 +44,15 @@ voices from experiment 01; `ffmpeg` for the videos).
 | audio8-air | cloned | 1 | 18.81 | 7 | 4.86 | 0.0 | Hola, buenos días, gracias por llamar. Le cuento, la reunión del jueves se ha movido al viernes a las 10 de la mañana en la sala grande de la segunda planta. Si no puede asistir, avíseme antes del miércoles y buscamos otra fecha que le venga mejor. Que tenga un buen día. |
 | audio8-air | cloned | 2 | 19.92 | 7 | 5.28 | 0.0 | Hola, buenos días, gracias por llamar. Le cuento, la reunión del jueves se ha movido al viernes a las 10 de la mañana en la sala grande de la segunda planta. Si no puede asistir, avíseme antes del miércoles y buscamos otra fecha que le venga mejor. Que tenga un buen día. |
 | audio8-air | cloned | 3 | 19.18 | 8 | 5.04 | 0.0 | Hola. Buenos días, gracias por llamar. Le cuento, la reunión del jueves se ha movido al viernes a las 10 de la mañana en la sala grande de la segunda planta. Si no puede asistir, avíseme antes del miércoles y buscamos otra fecha que le venga mejor. Que tenga un buen día. |
+| ming-tts-0.5b | default | 0 | 13.4 | 7 | 2.61 | 0.0048 | Hola, buenos días. Gracias por llamar. Le cuento, la reunión del jueves se ha movido al viernes a las 10 de la mañana, en la sala grande de la segunda planta. Si no puede asistir, avíseme antes del miércoles y buscamos otra fecha que le venga mejor. Que tenga un buen día. |
+| ming-tts-0.5b | default | 1 | 13.3 | 6 | 2.58 | 0.0048 | Hola, buenos días. Gracias por llamar. Le cuento, la reunión del jueves se ha movido al viernes a las 10 de la mañana, en la sala grande de la segunda planta. Si no puede asistir, avíseme antes del miércoles y buscamos otra fecha que le venga mejor. Que tenga un buen día. |
+| ming-tts-0.5b | default | 2 | 14.0 | 7 | 2.86 | 0.0048 | Hola, buenos días, gracias por llamar. Le cuento, la reunión del jueves se ha movido al viernes a las 10 de la mañana, en la sala grande de la segunda planta. Si no puede asistir, avíseme antes del miércoles y buscamos otra fecha que le venga mejor. Que tenga un buen día. |
+| ming-tts-0.5b | default | 3 | 13.4 | 7 | 2.42 | 0.0 | Hola buenos días, gracias por llamar. Le cuento, la reunión del jueves se ha movido al viernes a las 10 de la mañana, en la sala grande de la segunda planta. Si no puede asistir, avíseme antes del miércoles y buscamos otra fecha que le venga mejor. Que tenga un buen día. |
 <!-- results:end -->
 
 ## Conclusion
 
-- **All three read the sentence correctly.** Whisper hears every word in every take (WER 0). Audio8 with its
+- **All three engines read the sentence correctly.** Whisper hears every word in every take (WER 0). Audio8 with its
   built-in voice swallows part of the opening *Hola* in two of four takes; cloning the designed voice it is
   flawless on this sentence (phonetic error 0), and Qwen3-TTS 0.6B is close (0.0036).
 - **Audio8's "out of breath" feel is mostly time spent pausing.** Cloning the very same voice, Audio8 takes 19.3 s
@@ -54,6 +60,11 @@ voices from experiment 01; `ffmpeg` for the videos).
   with longer pauses too (up to 1.1 s against 0.6 s). With its built-in voice the gap is smaller (17.0 s, 3.4 s of
   pauses) but still there. Those long, breathy gaps between phrases are what the ear reads as a speaker short of
   breath.
+- **Ming-3.0-tts pauses like Qwen but talks faster, and sounds rushed.** Same voice, same pause time (2.6 s,
+  longest 0.6 s) and same phonetic error (0.0036), but the same syllables take 10.9 s of speech against Qwen's
+  12.6 s: about 15 % faster, which by ear comes across as hurried. It speaks about 1.4 times as fast as its
+  reference, so a slower reference slows it down; its own speed control (`BASIC`, Chinese and English) does not
+  work in Spanish.
 
 ## Limitations
 

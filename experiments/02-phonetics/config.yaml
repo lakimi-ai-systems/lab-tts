@@ -9,3 +9,5 @@ engines:
   audio8-air:
     cloned: {}  # model card defaults: temperature 0.8, top-p 0.95, top-k 50
     built_in_voice: {reference: none}
+  ming-tts-0.5b:
+    default: {}  # MingTTS.synthesize() defaults: cfg 2.0, sigma 0.25, temperature 0, its own text splitting

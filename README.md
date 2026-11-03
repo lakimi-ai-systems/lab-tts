@@ -12,6 +12,7 @@ and compared on the same texts, voices and judges.
 |---|---|---|
 | `qwen3-tts-0.6b` | [Qwen3-TTS-12Hz-0.6B-Base](https://huggingface.co/Qwen/Qwen3-TTS-12Hz-0.6B-Base) | clone |
 | `audio8-air` | [Audio8-TTS-Realistic-Air](https://huggingface.co/Edge0/Audio8-TTS-Realistic-Air) | clone, or use its built-in voice |
+| `ming-tts-0.5b` | [Ming-3.0-tts-0.5B](https://huggingface.co/inclusionAI/Ming-3.0-tts-0.5B) | clone (own environment, see [below](#engines-with-their-own-environment)) |
 | `qwen3-tts-1.7b-voicedesign` | [Qwen3-TTS-12Hz-1.7B-VoiceDesign](https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign) | design voices from a description |
 | `qwen3-tts-1.7b` | [Qwen3-TTS-12Hz-1.7B-Base](https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-Base) | clone (registered, not benchmarked yet) |
 
@@ -22,11 +23,11 @@ Summaries of each experiment's conclusions; the full tables are in the experimen
 | # | Question | Short answer |
 |---|---|---|
 | [01](experiments/01-voice-design) | Can we design a good reference voice without recording anyone? | **Yes** (Qwen3-TTS 1.7B VoiceDesign). All calm takes are fully intelligible. Generate several: the same description gives voices from 94 to 199 Hz. The English description gave calmer takes than the Spanish one. |
-| [02](experiments/02-phonetics) | How well does each engine pronounce Castilian Spanish? | **Qwen 0.6B: very well.** 8 of 11 hard texts flawless; the weak spot is non-Castilian spellings such as *Sanxenxo*, and lower temperature does not help. **Audio8: good, a step behind** (phonetic error 0.0099 vs 0.0069); it drops a syllable in *electroencefalograma* every time. |
-| [03](experiments/03-long-form) | Two minutes of speech: one shot or sentence by sentence? | **Qwen: both hold up** (WER 0). One shot flows better but fades 3–5 dB; sentence by sentence stays level. Feed several sentences per call. **Audio8: sentence by sentence only**; in one go it stops after 2–3 s. |
+| [02](experiments/02-phonetics) | How well does each engine pronounce Castilian Spanish? | **Qwen 0.6B: very well.** 8 of 11 hard texts flawless; the weak spot is non-Castilian spellings such as *Sanxenxo*, and lower temperature does not help. **Audio8: good, a step behind** (phonetic error 0.0099 vs 0.0069); it drops a syllable in *electroencefalograma* every time. **Ming 0.5B: close to Qwen** (0.0089), with the lowest WER (0.009). |
+| [03](experiments/03-long-form) | Two minutes of speech: one shot or sentence by sentence? | **Qwen: both hold up** (WER 0). One shot flows better but fades 3–5 dB; sentence by sentence stays level. Feed several sentences per call. **Audio8: sentence by sentence only**; in one go it stops after 2–3 s. **Ming 0.5B: holds up** in ~24-word fragments (WER ≤ 0.008), no fade. |
 | [04](experiments/04-shrill-voice) | Why does a cloned voice sometimes turn shrill? (Qwen 0.6B) | **Mostly the reference**, which the clone copies faithfully. **Occasional** shrill moments come from a hot talker temperature (1.2), not from the subtalker. Re-cloning from generated audio makes the voice duller, not shrill. |
-| [05](experiments/05-everyday-sentence) | One everyday sentence (the samples posted on X): how do the engines compare? | **All read it correctly.** With the same cloned voice, **Audio8 spends twice as long pausing** (5.2 s vs 2.6 s, takes 19 s vs 15 s): that is its "out of breath" feel. |
-| [06](experiments/06-max-text-length) | How much text fits in one generation? | **Qwen 0.6B: the full 375 words** (129 s). **Audio8: about 70 words** (~25 s); beyond that it derails or stops, without running out of context. |
+| [05](experiments/05-everyday-sentence) | One everyday sentence (the samples posted on X): how do the engines compare? | **All read it correctly.** With the same cloned voice, **Audio8 spends twice as long pausing** (5.2 s vs 2.6 s, takes 19 s vs 15 s): that is its "out of breath" feel. Ming pauses like Qwen but talks ~15 % faster: it sounds rushed. |
+| [06](experiments/06-max-text-length) | How much text fits in one generation? | **Qwen 0.6B: the full 375 words** (129 s). **Audio8: about 70 words** (~25 s); beyond that it derails or stops, without running out of context. **Ming 0.5B: ~20 s** (512-position context); its API splits the text, and so reads all of it. |
 
 ## The recipe
 
@@ -75,6 +76,8 @@ is what the repository keeps. Two options are shared by every experiment:
 
 - `--engines qwen3-tts-0.6b,other` runs only those engines and keeps the results of the others from your earlier runs.
 - `--rescore` judges the audio already generated again, without regenerating it (after changing a judge or metric).
+- `--generate-only` generates and stores the takes without judging them, for an engine that runs in its own
+  environment (judge them afterwards with `--rescore`).
 
 ## How speech is judged
 
@@ -115,12 +118,33 @@ tools/           run_all.sh, waveform_video.sh (waveform video for sharing a sam
    it designs the same voices into `voices/<its name>/`, ready to be cloned by any engine.
 2. Register a name for it in [`labtts/engines/__init__.py`](labtts/engines/__init__.py).
 3. If it needs extra packages, add them as an optional dependency group in `pyproject.toml` (`uv sync --extra <name>`).
-   If they conflict with the core environment, generate in a separate environment and judge with `--rescore` here.
+   If they conflict with the core environment, generate in a separate environment with `--generate-only` and judge
+   with `--rescore` here, so every engine is judged with the same judge versions (see below).
 4. Add the engine and its variants under `engines:` in the `config.yaml` of the benchmarks it should run, then run
    them with `--engines <name>`: the other engines' results are kept.
 
 Behaviour specific to one model (say, its own sampling knobs or artefacts) deserves its own experiment rather than
 a column in a shared benchmark.
+
+### Engines with their own environment
+
+Ming-3.0-tts pins torch 2.6 and transformers 4.46.3 and its inference code is not on PyPI, so it runs from its own
+virtual environment, with this package installed into it without dependencies. `tools/run_all.sh`, and any run
+without `--engines`, leave such engines out (they are listed in `OWN_ENVIRONMENT` in
+[`labtts/engines/__init__.py`](labtts/engines/__init__.py)) and keep their earlier results.
+
+```bash
+git clone https://github.com/inclusionAI/Ming-3.0-tts.git ../Ming-3.0-tts
+git -C ../Ming-3.0-tts checkout a39b80660bdc5a4394d5e1d41af6dbfd9c443a54    # the commit the results come from
+uv venv --python 3.10 ../ming-env
+VIRTUAL_ENV=../ming-env uv pip install torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124
+VIRTUAL_ENV=../ming-env uv pip install -r ../Ming-3.0-tts/requirements.txt librosa pyyaml num2words
+VIRTUAL_ENV=../ming-env uv pip install -e . --no-deps
+
+export MING_TTS_CODE=$(realpath ../Ming-3.0-tts)
+../ming-env/bin/python experiments/02-phonetics/run.py --engines ming-tts-0.5b --generate-only   # generate there
+uv run python experiments/02-phonetics/run.py --engines ming-tts-0.5b --rescore                  # judge here
+```
 
 ## Adding an experiment
 
@@ -134,4 +158,5 @@ speaker's consent.
 
 ## License
 
-Code under [Apache 2.0](LICENSE). The models are subject to their own licenses (Qwen3-TTS and Audio8-TTS-Realistic-Air: Apache 2.0).
+Code under [Apache 2.0](LICENSE). The models are subject to their own licenses (Qwen3-TTS and Audio8-TTS-Realistic-Air:
+Apache 2.0; Ming-3.0-tts: MIT).

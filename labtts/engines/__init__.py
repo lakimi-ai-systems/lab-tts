@@ -13,8 +13,13 @@ REGISTRY = {
     "qwen3-tts-0.6b": ("labtts.engines.qwen3_tts", "Qwen3TTSEngine", {"model_size": "0.6b"}),
     "qwen3-tts-1.7b": ("labtts.engines.qwen3_tts", "Qwen3TTSEngine", {"model_size": "1.7b"}),
     "audio8-air": ("labtts.engines.audio8", "Audio8Engine", {}),
+    "ming-tts-0.5b": ("labtts.engines.ming_tts", "MingTTSEngine", {}),  # own environment
     "qwen3-tts-1.7b-voicedesign": ("labtts.engines.qwen3_tts", "Qwen3VoiceDesignEngine", {}),
 }
+
+# Engines that only run in their own environment (see "Adding an engine" in the README): a run without --engines
+# leaves them out, and they are generated with --generate-only from that environment.
+OWN_ENVIRONMENT = {"ming-tts-0.5b"}
 
 
 def load_engine(name: str, voice: Voice | None = None) -> Engine:
@@ -25,4 +30,4 @@ def load_engine(name: str, voice: Voice | None = None) -> Engine:
     return engine_class(name=name, voice=voice, **arguments)
 
 
-__all__ = ["Engine", "Synthesis", "REGISTRY", "load_engine"]
+__all__ = ["Engine", "Synthesis", "REGISTRY", "OWN_ENVIRONMENT", "load_engine"]

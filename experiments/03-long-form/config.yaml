@@ -12,3 +12,5 @@ engines:
     default: {max_new_tokens: 3000}  # 240 s of audio: room for the whole text in a single generation
   audio8-air:
     cloned: {}  # its 2048-position context caps a single generation at about a minute
+  ming-tts-0.5b:
+    default: {}  # its 512-position context caps a generation at ~20 s, so one_shot uses the model's own splitting

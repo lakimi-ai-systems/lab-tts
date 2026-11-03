@@ -10,3 +10,6 @@ engines:
     default: {max_new_tokens: 3000}  # 240 s of audio: no cap gets in the way
   audio8-air:
     cloned: {}
+  ming-tts-0.5b:
+    single_generation: {split_text: false}  # the whole text in one generation, as in its benchmarks
+    default: {}  # the model's own API: splits the text at punctuation, one generation per fragment

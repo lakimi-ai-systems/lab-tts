@@ -15,9 +15,18 @@ from pathlib import Path
 
 import torch
 
+from labtts.engines import OWN_ENVIRONMENT
 from labtts.paths import REPO_ROOT, RESULTS_DIR
 
 TRACKED_PACKAGES = ["qwen-tts", "torch", "transformers", "librosa"]
+
+
+def _installed_version(package: str) -> str | None:
+    """None when the package is absent, as in an engine's separate environment (see README, Adding an engine)."""
+    try:
+        return importlib.metadata.version(package)
+    except importlib.metadata.PackageNotFoundError:
+        return None
 
 
 def _git(*arguments: str) -> str:
@@ -36,22 +45,29 @@ def environment() -> dict:
         "git_commit": commit or "uncommitted",
         "gpu": torch.cuda.get_device_name(0) if torch.cuda.is_available() else "cpu",
         "python": platform.python_version(),
-        "packages": {package: importlib.metadata.version(package) for package in TRACKED_PACKAGES},
+        "packages": {package: _installed_version(package) for package in TRACKED_PACKAGES},
     }
 
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--engines", help="comma-separated engine names from config.yaml (default: all of them)")
-    parser.add_argument("--rescore", action="store_true",
-                        help="judge the audio already in results/ again instead of generating it (e.g. after a judge fix)")
+    parser.add_argument("--engines", help="comma-separated engine names from config.yaml (default: all of them, except when "
+                             "generating those that need their own environment)")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--rescore", action="store_true",
+                      help="judge the audio already in results/ again instead of generating it (e.g. after a judge fix)")
+    mode.add_argument("--generate-only", action="store_true",
+                      help="generate and store the takes without judging them, for an engine with its own environment; "
+                           "judge them afterwards with --rescore in the lab's environment")
     return parser.parse_args()
 
 
 def engines_to_run(config: dict, arguments: argparse.Namespace) -> dict:
-    """The engines (name -> variants) of config.yaml selected on the command line."""
+    """The engines (name -> variants) of config.yaml selected on the command line. Without --engines, every engine
+    except, when generating, those that need their own environment (their earlier results are kept)."""
     if not arguments.engines:
-        return config["engines"]
+        return {name: variants for name, variants in config["engines"].items()
+                if arguments.rescore or name not in OWN_ENVIRONMENT}
     selected = arguments.engines.split(",")
     unknown = [name for name in selected if name not in config["engines"]]
     if unknown:

@@ -11,6 +11,8 @@ videos:
   audio8-air:
     built_in_voice: ["Audio8-TTS-Realistic-Air", "0,6B · voz por defecto · castellano"]
     cloned: ["Audio8-TTS-Realistic-Air", "0,6B · voz clonada · castellano"]
+  ming-tts-0.5b:
+    default: ["Ming-3.0-tts-0.5B", "0,5B · voz clonada · castellano"]
 # engine name -> variants: name -> setting overrides on top of the engine defaults
 engines:
   qwen3-tts-0.6b:
@@ -18,3 +20,5 @@ engines:
   audio8-air:
     built_in_voice: {reference: none}  # the model's own voice, as in the sample posted on X
     cloned: {}  # the same designed voice as Qwen, for a like-for-like comparison
+  ming-tts-0.5b:
+    default: {}

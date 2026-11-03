@@ -98,6 +98,10 @@ def main() -> None:
         audio_dir = experiment_output_dir(f"{EXPERIMENT_DIR.name}/{engine_name}")
         selected[engine_name] = ((previous[engine_name]["results"]["takes"], previous[engine_name]["voice"]) if arguments.rescore
                                  else generate(engine_name, variants, config, text, audio_dir)) + (audio_dir,)
+    if arguments.generate_only:  # judged later, with --rescore in the lab's environment
+        for engine_name, (takes, voice_label, _) in selected.items():
+            save_engine_results(EXPERIMENT_DIR, config, engine_name, voice_label, {"takes": takes})
+        return
     # the judges load once, after every engine has released the GPU
     phonetic_judge, whisper_judge = PhoneticJudge(), WhisperJudge()
     all_engines = previous
