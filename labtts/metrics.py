@@ -108,6 +108,26 @@ def windows_over_time(analysis: FrameAnalysis, window_seconds: float, words: lis
     return windows
 
 
+def pauses(analysis: FrameAnalysis, quiet_below_speech_db: float = 20.0, min_seconds: float = 0.2) -> dict:
+    """Pauses: stretches of at least min_seconds that are quiet_below_speech_db under the speech level (the median
+    loudness of voiced frames). Breaths, silences and long gaps all count; stops inside words are too short to."""
+    loudness_db = 20 * np.log10(librosa.feature.rms(y=analysis.wave, frame_length=FRAME_LENGTH,
+                                                    hop_length=HOP_LENGTH)[0][: len(analysis.pitch_hz)] + 1e-9)
+    quiet = loudness_db < float(np.median(loudness_db[analysis.voiced])) - quiet_below_speech_db
+    durations, run_start = [], None
+    for frame, is_quiet in enumerate(np.append(quiet, False)):
+        if is_quiet and run_start is None:
+            run_start = frame
+        elif not is_quiet and run_start is not None:
+            durations.append((frame - run_start) * analysis.frame_seconds)
+            run_start = None
+    long_pauses = [seconds for seconds in durations if seconds >= min_seconds]
+    total_seconds = len(analysis.wave) / ANALYSIS_SAMPLE_RATE
+    return {"pauses": len(long_pauses), "pause_seconds": round(sum(long_pauses), 2),
+            "pause_share": round(sum(long_pauses) / total_seconds, 4),
+            "longest_pause_seconds": round(max(long_pauses, default=0.0), 2)}
+
+
 @dataclass
 class ShrillnessThresholds:
     """A one-second window is "shrill" when, compared with the reference voice, its median pitch rises by more than

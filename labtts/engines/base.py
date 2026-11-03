@@ -46,10 +46,13 @@ class Engine(ABC):
     """A loaded TTS model ready to speak.
 
     Engines that can clone use the voice they are given (supports_cloning = True); the others ignore it and speak
-    with their built-in voice. Settings are engine-specific: synthesize() receives the overrides of one variant from
-    the experiment's config.yaml and applies them on top of the engine's defaults.
+    with their built-in voice. Engines that can design a voice from a text description (supports_voice_design =
+    True) produce the reference voices under voices/<engine>/ in experiment 01. Settings are engine-specific:
+    synthesize() and design_voice() receive the overrides of one variant from the experiment's config.yaml and apply
+    them on top of the engine's defaults.
     """
     supports_cloning: bool = False
+    supports_voice_design: bool = False
 
     def __init__(self, name: str, voice: Voice | None):
         self.name = name
@@ -62,6 +65,10 @@ class Engine(ABC):
     @abstractmethod
     def synthesize(self, text: str, seed: int, settings: dict | None = None) -> Synthesis:
         """Speaks the whole text in one generation, with the given seed and setting overrides."""
+
+    def design_voice(self, text: str, description: str, seed: int, settings: dict | None = None) -> Synthesis:
+        """Speaks the text in a new voice described in natural language."""
+        raise NotImplementedError(f"{self.name} cannot design a voice")
 
     def use_reference(self, reference_audio, transcript: str) -> None:
         """Clones another reference from now on: a file path or a (wave, sample_rate) tuple, with its transcript."""

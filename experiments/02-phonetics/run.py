@@ -15,8 +15,8 @@ from labtts.engines import load_engine
 from labtts.judges.phonetic import PhoneticJudge
 from labtts.judges.whisper import WhisperJudge, word_error_rate
 from labtts.paths import experiment_output_dir
-from labtts.records import (engines_to_run, load_engine_results, markdown_table, parse_arguments, save_engine_results,
-                            update_readme_results)
+from labtts.records import (engines_to_run, format_flagged_words, load_engine_results, markdown_table,
+                            parse_arguments, save_engine_results, update_readme_results, voice_used)
 from labtts.texts import load_config, load_items
 from labtts.voices import load_voice
 
@@ -49,8 +49,8 @@ def score_takes(takes: list[dict], texts_by_id: dict, audio_dir: Path, phonetic_
         verdict = phonetic_judge.evaluate(reference, wave, sample_rate)
         transcript = whisper_judge.transcribe(wave, sample_rate)
         take.update({"phonetic_error_rate": round(verdict.error_rate, 4), "flagged_words": verdict.flagged_words,
-                     "ctc_transcript": verdict.transcript, "whisper_transcript": transcript.text,
-                     "word_error_rate": round(word_error_rate(reference, transcript.text), 4)})
+                     "ctc_transcript": verdict.transcript, "whisper_transcript": transcript,
+                     "word_error_rate": round(word_error_rate(reference, transcript), 4)})
 
 
 def summarize(takes: list[dict]) -> dict:
@@ -74,7 +74,7 @@ def render_readme(all_engines: dict, texts: list[dict]) -> str:
     sections = ["### By engine and variant", markdown_table(
         ["engine", "variant", "voice", "takes", "phonetic error (mean)", "takes with flagged words", "flagged words",
          "Whisper WER (mean)", "flagged but WER = 0", "real-time factor (median)"],
-        [[engine_name, variant_name, entry["voice"], values["takes"], values["phonetic_error_rate_mean"],
+        [[engine_name, variant_name, voice_used(entry, variant_name), values["takes"], values["phonetic_error_rate_mean"],
           values["takes_with_flagged_words"], values["flagged_words"], values["word_error_rate_mean"],
           values["takes_whisper_missed"], values["real_time_factor_median"]]
          for engine_name, entry in all_engines.items() for variant_name, values in entry["results"]["summary"].items()])]

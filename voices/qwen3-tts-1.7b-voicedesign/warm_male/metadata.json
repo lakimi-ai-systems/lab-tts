@@ -1,5 +1,6 @@
 {
-  "designed_with": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "designed_with": "qwen3-tts-1.7b-voicedesign",
+  "variant": "default",
   "description_language": "english",
   "seed": 0,
   "picked_as": "calmest",

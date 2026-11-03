@@ -12,6 +12,8 @@ from labtts.voices import Voice
 REGISTRY = {
     "qwen3-tts-0.6b": ("labtts.engines.qwen3_tts", "Qwen3TTSEngine", {"model_size": "0.6b"}),
     "qwen3-tts-1.7b": ("labtts.engines.qwen3_tts", "Qwen3TTSEngine", {"model_size": "1.7b"}),
+    "audio8-air": ("labtts.engines.audio8", "Audio8Engine", {}),
+    "qwen3-tts-1.7b-voicedesign": ("labtts.engines.qwen3_tts", "Qwen3VoiceDesignEngine", {}),
 }
 
 

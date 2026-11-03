@@ -31,23 +31,23 @@ listening test: it flags candidates to listen to, and the thresholds are in [`co
 
 | voice | pitch median (Hz) | pitch p95 (Hz) | pitch spread (st) | brightness median (Hz) |
 |---|---|---|---|---|
-| warm_male | 144.36 | 178.04 | 2.93 | 1365.02 |
-| warm_male_energetic | 263.24 | 324.37 | 2.15 | 1736.9 |
+| qwen3-tts-1.7b-voicedesign/warm_male | 144.36 | 178.04 | 2.93 | 1365.02 |
+| qwen3-tts-1.7b-voicedesign/warm_male_energetic | 263.24 | 324.37 | 2.15 | 1736.9 |
 
 ### Reference × variant (6 paragraphs each)
 
 | engine | reference | variant | shrill windows (mean share) | generations with shrill windows | pitch median vs target (st) | pitch p95 vs target (st) | brightness vs target | pitch median vs own reference (st) | brightness vs own reference | phonetic error |
 |---|---|---|---|---|---|---|---|---|---|---|
-| qwen3-tts-0.6b | warm_male | default | 0.0% | 0/6 | -2.13 | -0.83 | 0.842 | -2.13 | 0.842 | 0.0034 |
-| qwen3-tts-0.6b | warm_male | talker_cold | 0.0% | 0/6 | -0.79 | -0.38 | 0.864 | -0.79 | 0.864 | 0.0026 |
-| qwen3-tts-0.6b | warm_male | talker_hot | 9.8% | 4/6 | -1.12 | 1.22 | 0.839 | -1.12 | 0.839 | 0.0044 |
-| qwen3-tts-0.6b | warm_male | subtalker_cold | 2.6% | 1/6 | -1.45 | -0.68 | 0.834 | -1.45 | 0.834 | 0.0033 |
-| qwen3-tts-0.6b | warm_male | subtalker_hot | 2.4% | 1/6 | -0.65 | 1.06 | 0.852 | -0.65 | 0.852 | 0.0033 |
-| qwen3-tts-0.6b | warm_male_energetic | default | 98.6% | 6/6 | 9.87 | 9.75 | 1.278 | -0.53 | 1.004 | 0.0049 |
-| qwen3-tts-0.6b | warm_male_energetic | talker_cold | 100.0% | 6/6 | 10.37 | 10.08 | 1.303 | -0.03 | 1.024 | 0.0043 |
-| qwen3-tts-0.6b | warm_male_energetic | talker_hot | 98.6% | 6/6 | 10.12 | 10.02 | 1.289 | -0.28 | 1.014 | 0.0068 |
-| qwen3-tts-0.6b | warm_male_energetic | subtalker_cold | 100.0% | 6/6 | 10.08 | 10.29 | 1.308 | -0.32 | 1.028 | 0.0076 |
-| qwen3-tts-0.6b | warm_male_energetic | subtalker_hot | 98.3% | 6/6 | 9.69 | 10.27 | 1.246 | -0.71 | 0.98 | 0.006 |
+| qwen3-tts-0.6b | qwen3-tts-1.7b-voicedesign/warm_male | default | 0.0% | 0/6 | -2.13 | -0.83 | 0.842 | -2.13 | 0.842 | 0.0034 |
+| qwen3-tts-0.6b | qwen3-tts-1.7b-voicedesign/warm_male | talker_cold | 0.0% | 0/6 | -0.79 | -0.38 | 0.864 | -0.79 | 0.864 | 0.0026 |
+| qwen3-tts-0.6b | qwen3-tts-1.7b-voicedesign/warm_male | talker_hot | 9.8% | 4/6 | -1.12 | 1.22 | 0.839 | -1.12 | 0.839 | 0.0044 |
+| qwen3-tts-0.6b | qwen3-tts-1.7b-voicedesign/warm_male | subtalker_cold | 2.6% | 1/6 | -1.45 | -0.68 | 0.834 | -1.45 | 0.834 | 0.0033 |
+| qwen3-tts-0.6b | qwen3-tts-1.7b-voicedesign/warm_male | subtalker_hot | 2.4% | 1/6 | -0.65 | 1.06 | 0.852 | -0.65 | 0.852 | 0.0033 |
+| qwen3-tts-0.6b | qwen3-tts-1.7b-voicedesign/warm_male_energetic | default | 98.6% | 6/6 | 9.87 | 9.75 | 1.278 | -0.53 | 1.004 | 0.0049 |
+| qwen3-tts-0.6b | qwen3-tts-1.7b-voicedesign/warm_male_energetic | talker_cold | 100.0% | 6/6 | 10.37 | 10.08 | 1.303 | -0.03 | 1.024 | 0.0043 |
+| qwen3-tts-0.6b | qwen3-tts-1.7b-voicedesign/warm_male_energetic | talker_hot | 98.6% | 6/6 | 10.12 | 10.02 | 1.289 | -0.28 | 1.014 | 0.0068 |
+| qwen3-tts-0.6b | qwen3-tts-1.7b-voicedesign/warm_male_energetic | subtalker_cold | 100.0% | 6/6 | 10.08 | 10.29 | 1.308 | -0.32 | 1.028 | 0.0076 |
+| qwen3-tts-0.6b | qwen3-tts-1.7b-voicedesign/warm_male_energetic | subtalker_hot | 98.3% | 6/6 | 9.69 | 10.27 | 1.246 | -0.71 | 0.98 | 0.006 |
 
 ### Re-cloning chain (each step clones the previous output)
 
@@ -86,7 +86,8 @@ below, and never use generated audio as the next reference.
 
 - Six paragraphs per cell: the ranking between variants is clear, the exact percentages are not.
 - "Shrill" is an acoustic proxy (pitch and brightness against the calm voice), not a listening test. Listen to the
-  flagged windows (`shrill_at_seconds` in `results.json`) before drawing fine conclusions.
+  flagged windows (`shrill_at_seconds` in `results/04-shrill-voice/results.json`, after a run) before drawing fine
+  conclusions.
 - A cloned paragraph sits about 2 semitones below the reference even at default settings, probably because narrative
   text is read lower than the reference's greeting. The comparisons between variants are unaffected, since they all
   use the same texts and seeds.

@@ -1,9 +1,8 @@
-model: Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign
 # What every candidate says; it becomes the transcript of the chosen reference (~10 s of speech)
 reference_text: "Hola, buenas tardes, gracias por llamar. Cuénteme con calma qué necesita y, si le falta algún dato, no se preocupe: lo vemos juntos paso a paso."
 seeds: [0, 1, 2, 3]
-sampling: {}  # model defaults (see labtts.models.Sampling)
 
+# Every voice-design engine below designs every voice here into voices/<engine>/<voice>/
 voices:
   warm_male:
     # The voice used by the other experiments: pick the calmest intelligible take
@@ -27,3 +26,8 @@ selection:
   # A take is eligible only if Whisper hears every word and the phonetic judge finds no mispronounced word
   max_word_error_rate: 0.0
   max_flagged_words: 0
+
+# Voice-design engines (see labtts/engines/__init__.py) -> variants: name -> setting overrides on top of their defaults
+engines:
+  qwen3-tts-1.7b-voicedesign:
+    default: {}

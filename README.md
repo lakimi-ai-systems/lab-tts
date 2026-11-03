@@ -4,25 +4,29 @@ Reproducible text-to-speech experiments in **Castilian Spanish**, starting with
 [Qwen3-TTS 0.6B](https://huggingface.co/Qwen/Qwen3-TTS-12Hz-0.6B-Base).
 
 Every experiment answers one question, runs with one command and regenerates all of its audio: no audio is stored in
-the repository except the short synthetic reference voices in [`voices/`](voices). The benchmarks are written
-against a common engine interface, so new models can be added and compared on the same texts, voices and judges.
+the repository except the short synthetic reference voices in [`voices/`](voices), and the published numbers live
+in the experiment READMEs. The benchmarks are written against a common engine interface, so new models can be added
+and compared on the same texts, voices and judges.
 
-| Engine | Model | Cloning |
+| Engine | Model | Can |
 |---|---|---|
-| `qwen3-tts-0.6b` | [Qwen3-TTS-12Hz-0.6B-Base](https://huggingface.co/Qwen/Qwen3-TTS-12Hz-0.6B-Base) | yes |
-| `qwen3-tts-1.7b` | [Qwen3-TTS-12Hz-1.7B-Base](https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-Base) (registered, not benchmarked yet) | yes |
+| `qwen3-tts-0.6b` | [Qwen3-TTS-12Hz-0.6B-Base](https://huggingface.co/Qwen/Qwen3-TTS-12Hz-0.6B-Base) | clone |
+| `audio8-air` | [Audio8-TTS-Realistic-Air](https://huggingface.co/Edge0/Audio8-TTS-Realistic-Air) | clone, or use its built-in voice |
+| `qwen3-tts-1.7b-voicedesign` | [Qwen3-TTS-12Hz-1.7B-VoiceDesign](https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign) | design voices from a description |
+| `qwen3-tts-1.7b` | [Qwen3-TTS-12Hz-1.7B-Base](https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-Base) | clone (registered, not benchmarked yet) |
 
 ## Findings
 
-So far for `qwen3-tts-0.6b`. Summaries of each experiment's conclusions; the full tables are in the experiment
-READMEs.
+Summaries of each experiment's conclusions; the full tables are in the experiment READMEs.
 
 | # | Question | Short answer |
 |---|---|---|
-| [01](experiments/01-voice-design) | Can we design a good reference voice without recording anyone? | **Yes.** All calm takes are fully intelligible. Generate several: the same description gives voices from 94 to 199 Hz. The English description gave calmer takes than the Spanish one. |
-| [02](experiments/02-phonetics) | How well does the 0.6B model pronounce Castilian Spanish? | **Very well.** 8 of 11 hard texts are flawless (z/c, jota, rr, ñ, numbers, questions...). The weak spot is non-Castilian spellings such as *Sanxenxo*. Lower temperature does not help. |
-| [03](experiments/03-long-form) | Two minutes of speech: one shot or sentence by sentence? | **Both hold up** (WER 0). One shot flows better but fades 3–5 dB over two minutes; sentence by sentence stays level. Feed several sentences per call. |
-| [04](experiments/04-shrill-voice) | Why does a cloned voice sometimes turn shrill? | **Mostly the reference**, which the clone copies faithfully. **Occasional** shrill moments come from a hot talker temperature (1.2), not from the subtalker. Re-cloning from generated audio makes the voice duller, not shrill. |
+| [01](experiments/01-voice-design) | Can we design a good reference voice without recording anyone? | **Yes** (Qwen3-TTS 1.7B VoiceDesign). All calm takes are fully intelligible. Generate several: the same description gives voices from 94 to 199 Hz. The English description gave calmer takes than the Spanish one. |
+| [02](experiments/02-phonetics) | How well does each engine pronounce Castilian Spanish? | **Qwen 0.6B: very well.** 8 of 11 hard texts flawless; the weak spot is non-Castilian spellings such as *Sanxenxo*, and lower temperature does not help. **Audio8: good, a step behind** (phonetic error 0.0099 vs 0.0069); it drops a syllable in *electroencefalograma* every time. |
+| [03](experiments/03-long-form) | Two minutes of speech: one shot or sentence by sentence? | **Qwen: both hold up** (WER 0). One shot flows better but fades 3–5 dB; sentence by sentence stays level. Feed several sentences per call. **Audio8: sentence by sentence only**; in one go it stops after 2–3 s. |
+| [04](experiments/04-shrill-voice) | Why does a cloned voice sometimes turn shrill? (Qwen 0.6B) | **Mostly the reference**, which the clone copies faithfully. **Occasional** shrill moments come from a hot talker temperature (1.2), not from the subtalker. Re-cloning from generated audio makes the voice duller, not shrill. |
+| [05](experiments/05-everyday-sentence) | One everyday sentence (the samples posted on X): how do the engines compare? | **All read it correctly.** With the same cloned voice, **Audio8 spends twice as long pausing** (5.2 s vs 2.6 s, takes 19 s vs 15 s): that is its "out of breath" feel. |
+| [06](experiments/06-max-text-length) | How much text fits in one generation? | **Qwen 0.6B: the full 375 words** (129 s). **Audio8: about 70 words** (~25 s); beyond that it derails or stops, without running out of context. |
 
 ## The recipe
 
@@ -64,11 +68,12 @@ uv run python experiments/02-phonetics/run.py         # ...and so on, or all at 
 tools/run_all.sh
 ```
 
-Audio is written to `results/<experiment>/<engine>/` (git-ignored). Each `run.py` also writes `results.json` next to
-it, with one entry per engine and the exact environment each was produced in (package versions, GPU, git commit), and
-refreshes the results tables in its README. Two options are shared by the engine benchmarks (02–04):
+Everything an experiment produces goes to `results/<experiment>/`, which is git-ignored: the audio, under
+`<engine>/`, and `results.json`, with every take's scores and one entry per engine with the exact environment it was
+produced in (package versions, GPU, git commit). Each `run.py` then refreshes the results tables in its README, which
+is what the repository keeps. Two options are shared by every experiment:
 
-- `--engines qwen3-tts-0.6b,other` runs only those engines and keeps the stored results of the rest.
+- `--engines qwen3-tts-0.6b,other` runs only those engines and keeps the results of the others from your earlier runs.
 - `--rescore` judges the audio already generated again, without regenerating it (after changing a judge or metric).
 
 ## How speech is judged
@@ -94,8 +99,9 @@ labtts/
   metrics.py     pitch, loudness, brightness, speaking rate, shrillness
   voices.py, texts.py, records.py, paths.py
 texts/           test texts (neutral, written to stress known difficulties of Spanish)
-voices/          synthetic reference voices produced by experiment 01
-experiments/     one folder per experiment: README, config.yaml, run.py, results.json
+voices/          synthetic reference voices from experiment 01: voices/<designer>/<voice>/
+experiments/     one folder per experiment: README, config.yaml, run.py
+results/         generated audio and results.json per experiment (git-ignored)
 tools/           run_all.sh, waveform_video.sh (waveform video for sharing a sample)
 ```
 
@@ -104,7 +110,9 @@ tools/           run_all.sh, waveform_video.sh (waveform video for sharing a sam
 1. Write `labtts/engines/<model>.py` with a subclass of [`Engine`](labtts/engines/base.py): load the model in
    `__init__`, implement `synthesize(text, seed, settings)` (one generation of the whole text, settings being the
    variant's overrides on top of your defaults) and `close()`. Set `supports_cloning = True` and implement
-   `use_reference()` if the model clones; otherwise it speaks with its built-in voice.
+   `use_reference()` if the model clones; otherwise it speaks with its built-in voice. A model that designs voices
+   from a description sets `supports_voice_design = True` and implements `design_voice()`; added to experiment 01,
+   it designs the same voices into `voices/<its name>/`, ready to be cloned by any engine.
 2. Register a name for it in [`labtts/engines/__init__.py`](labtts/engines/__init__.py).
 3. If it needs extra packages, add them as an optional dependency group in `pyproject.toml` (`uv sync --extra <name>`).
    If they conflict with the core environment, generate in a separate environment and judge with `--rescore` here.
@@ -126,4 +134,4 @@ speaker's consent.
 
 ## License
 
-Code under [Apache 2.0](LICENSE). The models are subject to their own licenses (Qwen3-TTS: Apache 2.0).
+Code under [Apache 2.0](LICENSE). The models are subject to their own licenses (Qwen3-TTS and Audio8-TTS-Realistic-Air: Apache 2.0).

@@ -1,0 +1,20 @@
+voice: qwen3-tts-1.7b-voicedesign/warm_male  # cloned by engines that can clone
+text: everyday.txt  # the ~15 s sentence of the samples posted on X
+seeds: [0, 1, 2, 3]
+pauses:
+  quiet_below_speech_db: 20  # quieter than this under the speech level counts as pause (silence or breath)
+  min_seconds: 0.2
+# A waveform video (tools/waveform_video.sh) is rendered for seed 0 of each engine and variant when ffmpeg is present
+videos:
+  qwen3-tts-0.6b:
+    default: ["Qwen3-TTS-12Hz-0.6B-Base", "0,6B · voz clonada · castellano"]
+  audio8-air:
+    built_in_voice: ["Audio8-TTS-Realistic-Air", "0,6B · voz por defecto · castellano"]
+    cloned: ["Audio8-TTS-Realistic-Air", "0,6B · voz clonada · castellano"]
+# engine name -> variants: name -> setting overrides on top of the engine defaults
+engines:
+  qwen3-tts-0.6b:
+    default: {}
+  audio8-air:
+    built_in_voice: {reference: none}  # the model's own voice, as in the sample posted on X
+    cloned: {}  # the same designed voice as Qwen, for a like-for-like comparison

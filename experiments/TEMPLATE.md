@@ -23,9 +23,10 @@ engines:
 uv run python experiments/NN-short-title/run.py [--engines name,...] [--rescore]
 ```
 
-Audio goes to `results/NN-short-title/<engine>/` (git-ignored). `run.py` stores one entry per engine in
-`results.json` (see `labtts.records.save_engine_results`) and fills the block below from it. `--engines` runs a subset
-and keeps the others' results; `--rescore` judges the audio already generated again without regenerating it.
+Audio goes to `results/NN-short-title/<engine>/` and `run.py` stores one entry per engine in
+`results/NN-short-title/results.json` (both git-ignored, see `labtts.records.save_engine_results`), then fills the
+block below from it. `--engines` runs a subset and keeps the others' results from earlier runs; `--rescore` judges
+the audio already generated again without regenerating it.
 
 <!-- results:start -->
 <!-- results:end -->

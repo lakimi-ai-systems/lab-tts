@@ -1,6 +1,6 @@
 # Shrillness is always measured against this voice: the calm voice we actually want to hear
-target_voice: warm_male
-references: [warm_male, warm_male_energetic]
+target_voice: qwen3-tts-1.7b-voicedesign/warm_male
+references: [qwen3-tts-1.7b-voicedesign/warm_male, qwen3-tts-1.7b-voicedesign/warm_male_energetic]
 texts: paragraphs.jsonl  # six ~15 s paragraphs; paragraph i always uses seed i, so variants are compared like for like
 # Each output becomes the reference for the next generation (a copy of a copy), starting from target_voice
 reclone_chain:

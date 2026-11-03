@@ -62,6 +62,9 @@ class PhoneticVerdict:
     error_rate: float  # edited characters / characters of the reference, in phonetic spelling
     flagged_words: list[dict] = field(default_factory=list)  # {"expected", "heard", "edits"}
     transcript: str = ""
+    # what the recognizer heard, word by word, with the second each word starts (cheap: comes from CTC decoding)
+    heard_words: list[str] = field(default_factory=list)
+    word_start_seconds: list[float] = field(default_factory=list)
 
 
 class PhoneticJudge:
@@ -76,7 +79,8 @@ class PhoneticJudge:
 
     def evaluate(self, reference_text: str, wave: np.ndarray, sample_rate: int) -> PhoneticVerdict:
         wave_16k = librosa.resample(wave.astype(np.float32), orig_sr=sample_rate, target_sr=16000) if sample_rate != 16000 else wave
-        transcript = self.recognizer({"raw": wave_16k, "sampling_rate": 16000})["text"]
+        output = self.recognizer({"raw": wave_16k, "sampling_rate": 16000}, return_timestamps="word")
+        transcript = output["text"]
         original_words = [word for word in reference_text.replace("-", " ").split() if to_phonetic_spelling(word)]
         reference = phonetic_words(reference_text)
         reference_string, heard_string = "".join(reference), "".join(phonetic_words(transcript))
@@ -104,4 +108,6 @@ class PhoneticJudge:
                 flagged_words.append({"expected": original_words[word_index], "heard": heard_per_word[word_index],
                                       "edits": edits})
         return PhoneticVerdict(error_rate=sum(edits_per_word) / max(1, len(reference_string)),
-                               flagged_words=flagged_words, transcript=transcript)
+                               flagged_words=flagged_words, transcript=transcript,
+                               heard_words=[chunk["text"] for chunk in output["chunks"]],
+                               word_start_seconds=[chunk["timestamp"][0] for chunk in output["chunks"]])

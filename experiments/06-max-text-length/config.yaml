@@ -1,0 +1,12 @@
+voice: qwen3-tts-1.7b-voicedesign/warm_male  # cloned by engines that can clone
+text: long_form_ai.txt  # each take reads its first N sentences in a single generation
+sentence_counts: [1, 2, 4, 8, 12, 16, 22]  # 22 = the whole ~375-word text
+seeds: [0, 1]
+# A take counts as read in full when Whisper's WER against the requested text stays at or below this
+max_word_error_rate_read_in_full: 0.1
+# engine name -> variants: name -> setting overrides on top of the engine defaults
+engines:
+  qwen3-tts-0.6b:
+    default: {max_new_tokens: 3000}  # 240 s of audio: no cap gets in the way
+  audio8-air:
+    cloned: {}

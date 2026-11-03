@@ -1,4 +1,5 @@
-"""Qwen3-TTS (12 Hz): Base models for cloning and the VoiceDesign model for designing reference voices.
+"""Qwen3-TTS (12 Hz): Base models for cloning (Qwen3TTSEngine) and the VoiceDesign model for designing reference
+voices (Qwen3VoiceDesignEngine).
 
 Requires the qwen-tts package (a core dependency of this repo).
 """
@@ -55,12 +56,27 @@ def _synthesis(generate, sampling: QwenSampling) -> Synthesis:
                      hit_token_limit=frames >= sampling.max_new_tokens - 1)
 
 
-def design_voice(model, text: str, description: str, settings: dict | None, seed: int) -> Synthesis:
-    """VoiceDesign: speech in a voice described in natural language (no reference audio)."""
-    sampling = QwenSampling.from_overrides(settings)
-    set_seed(seed)
-    return _synthesis(lambda: model.generate_voice_design(text=text, instruct=description, language="Spanish",
-                                                          **sampling.as_kwargs()), sampling)
+class Qwen3VoiceDesignEngine(Engine):
+    """The 1.7B VoiceDesign model: speech in a voice described in natural language, with no reference audio."""
+    supports_voice_design = True
+
+    def __init__(self, name: str, voice: Voice | None):
+        super().__init__(name, voice)
+        self.model = load_model(VOICE_DESIGN_MODEL)
+
+    def design_voice(self, text: str, description: str, seed: int, settings: dict | None = None) -> Synthesis:
+        sampling = QwenSampling.from_overrides(settings)
+        set_seed(seed)
+        return _synthesis(lambda: self.model.generate_voice_design(text=text, instruct=description, language="Spanish",
+                                                                   **sampling.as_kwargs()), sampling)
+
+    def synthesize(self, text: str, seed: int, settings: dict | None = None) -> Synthesis:
+        """Without a description the model picks a voice itself (an empty instruction is allowed)."""
+        return self.design_voice(text, "", seed, settings)
+
+    def close(self) -> None:
+        del self.model
+        super().close()
 
 
 class Qwen3TTSEngine(Engine):

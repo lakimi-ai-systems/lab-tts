@@ -1,8 +1,8 @@
 """Result files and command line shared by the experiments.
 
-Engine comparisons keep one entry per engine in results.json, each with the environment it was produced in, so an
-engine can be added or re-run without regenerating the others. README tables are rendered from results.json so the
-numbers in the docs never drift from the data.
+Each experiment keeps one entry per engine in results/<experiment>/results.json (git-ignored, next to the audio),
+each with the environment it was produced in, so an engine can be added or re-run without regenerating the others.
+README tables are rendered from it, so the numbers in the docs never drift from the data.
 """
 import argparse
 import importlib.metadata
@@ -15,7 +15,7 @@ from pathlib import Path
 
 import torch
 
-from labtts.paths import REPO_ROOT
+from labtts.paths import REPO_ROOT, RESULTS_DIR
 
 TRACKED_PACKAGES = ["qwen-tts", "torch", "transformers", "librosa"]
 
@@ -59,9 +59,14 @@ def engines_to_run(config: dict, arguments: argparse.Namespace) -> dict:
     return {name: config["engines"][name] for name in selected}
 
 
+def results_path(experiment_dir: Path) -> Path:
+    """results/<experiment>/results.json: generated next to the audio, so it is git-ignored like the audio."""
+    return RESULTS_DIR / experiment_dir.name / "results.json"
+
+
 def load_engine_results(experiment_dir: Path) -> dict:
-    """{engine name: {"environment", "voice", "variants", "results"}} from results.json (empty if not run yet)."""
-    path = experiment_dir / "results.json"
+    """{engine name: {"environment", "voice", "variants", "results"}} from earlier runs (empty if not run yet)."""
+    path = results_path(experiment_dir)
     return json.loads(path.read_text(encoding="utf-8"))["engines"] if path.exists() else {}
 
 
@@ -72,17 +77,22 @@ def save_engine_results(experiment_dir: Path, config: dict, engine_name: str, vo
                                 "variants": config["engines"][engine_name], "results": results}
     ordered = {name: all_engines[name] for name in sorted(all_engines, key=list(config["engines"]).index)
                if name in config["engines"]}
-    (experiment_dir / "results.json").write_text(
-        json.dumps({"config": config, "engines": ordered}, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    path = results_path(experiment_dir)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({"config": config, "engines": ordered}, indent=1, ensure_ascii=False) + "\n",
+                    encoding="utf-8")
     return ordered
 
 
-def write_results(experiment_dir: Path, config: dict, results: dict) -> Path:
-    """results.json for experiments that are not engine comparisons (e.g. 01, which designs the voices)."""
-    path = experiment_dir / "results.json"
-    path.write_text(json.dumps({"environment": environment(), "config": config, "results": results},
-                               indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    return path
+def voice_used(engine_entry: dict, variant_name: str) -> str:
+    """The voice a variant actually spoke with: a variant may switch a cloning engine to its built-in voice."""
+    return "built-in" if engine_entry["variants"][variant_name].get("reference") == "none" else engine_entry["voice"]
+
+
+def format_flagged_words(flagged_words: list[dict], limit: int = 8) -> str:
+    shown = ", ".join(f"{word['expected']}→{word['heard']}" for word in flagged_words[:limit])
+    remaining = len(flagged_words) - limit
+    return (shown + (f" … and {remaining} more" if remaining > 0 else "")) or "—"
 
 
 def markdown_table(headers: list[str], rows: list[list]) -> str:

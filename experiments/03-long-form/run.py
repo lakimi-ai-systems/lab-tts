@@ -15,11 +15,11 @@ import soundfile as sf
 
 from labtts.engines import load_engine
 from labtts.judges.phonetic import PhoneticJudge
-from labtts.judges.whisper import WhisperJudge, normalize_words, word_error_rate
+from labtts.judges.whisper import WhisperJudge, word_error_rate
 from labtts.metrics import analyze_frames, windows_over_time
 from labtts.paths import experiment_output_dir
-from labtts.records import (engines_to_run, load_engine_results, markdown_table, parse_arguments, save_engine_results,
-                            update_readme_results)
+from labtts.records import (engines_to_run, format_flagged_words, load_engine_results, markdown_table,
+                            parse_arguments, save_engine_results, update_readme_results, voice_used)
 from labtts.texts import load_config, load_text, split_sentences
 from labtts.voices import load_voice
 
@@ -61,14 +61,17 @@ def score(config: dict, runs: list[dict], text: str, audio_dir: Path, phonetic_j
     for run in runs:
         wave, sample_rate = sf.read(audio_dir / run["wav"], dtype="float32")
         verdict = phonetic_judge.evaluate(text, wave, sample_rate)
-        transcript = whisper_judge.transcribe(wave, sample_rate, word_timestamps=True)
+        transcript = whisper_judge.transcribe(wave, sample_rate)
+        # speaking rate uses the words the CTC recognizer heard and when each starts (Whisper word timing is too costly)
         windows = windows_over_time(analyze_frames(wave, sample_rate), config["window_seconds"],
-                                    normalize_words(transcript.text), transcript.word_start_seconds)
+                                    verdict.heard_words, verdict.word_start_seconds)
         pitches = [window["pitch_median_hz"] for window in windows if window["pitch_median_hz"]]
+        # an engine that stops early may leave fewer than two windows: there is no drift to measure then
         run.update({"phonetic_error_rate": round(verdict.error_rate, 4), "flagged_words": verdict.flagged_words,
-                    "word_error_rate": round(word_error_rate(text, transcript.text), 4), "windows": windows,
-                    "loudness_drift_db": round(windows[-1]["loudness_dbfs"] - windows[0]["loudness_dbfs"], 1),
-                    "pitch_range_hz": [min(pitches), max(pitches)]})
+                    "word_error_rate": round(word_error_rate(text, transcript), 4), "windows": windows,
+                    "loudness_drift_db": round(windows[-1]["loudness_dbfs"] - windows[0]["loudness_dbfs"], 1)
+                    if len(windows) > 1 else None,
+                    "pitch_range_hz": [min(pitches), max(pitches)] if pitches else None})
 
 
 def render_readme(config: dict, all_engines: dict) -> str:
@@ -77,15 +80,20 @@ def render_readme(config: dict, all_engines: dict) -> str:
         ["engine", "variant", "mode", "seed", "duration (s)", "phonetic error", "flagged words", "Whisper WER",
          "loudness last − first window (dB)", "window pitch range (Hz)"],
         [[engine_name, run["variant"], run["mode"], run["seed"], run["duration_s"], run["phonetic_error_rate"],
-          ", ".join(f"{word['expected']}→{word['heard']}" for word in run["flagged_words"]) or "—",
-          run["word_error_rate"], run["loudness_drift_db"], f"{run['pitch_range_hz'][0]}–{run['pitch_range_hz'][1]}"]
+          format_flagged_words(run["flagged_words"]),
+          run["word_error_rate"], "—" if run["loudness_drift_db"] is None else run["loudness_drift_db"],
+          f"{run['pitch_range_hz'][0]}–{run['pitch_range_hz'][1]}" if run["pitch_range_hz"] else "—"]
          for engine_name, run in every_run])]
+    drifts = {}
+    for engine_name, run in every_run:
+        if run["loudness_drift_db"] is not None:
+            drifts.setdefault((engine_name, run["variant"], run["mode"]), []).append(run["loudness_drift_db"])
     groups = dict.fromkeys((engine_name, run["variant"], run["mode"]) for engine_name, run in every_run)
     sections += ["### Mean over seeds", markdown_table(
         ["engine", "variant", "mode", "phonetic error", "loudness drift (dB)"],
         [[engine_name, variant, mode,
           round(mean(run["phonetic_error_rate"] for name, run in every_run if (name, run["variant"], run["mode"]) == (engine_name, variant, mode)), 4),
-          round(mean(run["loudness_drift_db"] for name, run in every_run if (name, run["variant"], run["mode"]) == (engine_name, variant, mode)), 1)]
+          round(mean(drifts[(engine_name, variant, mode)]), 1) if (engine_name, variant, mode) in drifts else "—"]
          for engine_name, variant, mode in groups])]
     for engine_name, run in every_run:
         if run["seed"] != config["seeds"][0]:
